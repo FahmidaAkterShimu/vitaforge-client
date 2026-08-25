@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+
+
 /* ================================
    Theme Variables
 ================================ */
@@ -74,6 +76,8 @@
 
 html {
   min-height: 100%;
+  scroll-behavior: smooth;
+
 }
 
 body {

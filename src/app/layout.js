@@ -22,7 +22,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      data-theme="dark"
       lang="en"
       className={`${barlowCondensed.variable} ${dmSans.variable} h-full antialiased`}
     >
