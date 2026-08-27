@@ -1,0 +1,175 @@
+"use client";
+
+import Image from "next/image";
+import { ArrowRight, Dumbbell, Users, Award } from "lucide-react";
+import { motion } from "motion/react";
+import { Button } from "@heroui/react";
+
+const Banner = () => {
+    const stats = [
+        {
+            icon: Users,
+            number: "12,000+",
+            label: "Active Members",
+        },
+        {
+            icon: Award,
+            number: "48+",
+            label: "Expert Trainers",
+        },
+        {
+            icon: Dumbbell,
+            number: "200+",
+            label: "Classes Weekly",
+        },
+    ];
+
+    return (
+        <section className="relative overflow-hidden bg-black text-white">
+            {/* Background Image */}
+            <div className="absolute inset-0">
+                <Image
+                    src="/banner.avif"
+                    alt="Fitness training"
+                    fill
+                    priority
+                    className="object-cover object-center opacity-30"
+                />
+                {/* Left Dark Gradient */}
+                <div className="absolute inset-0 bg-linear-to-r from-neutral-950 via-neutral-950/80 to-transparent" />
+
+                {/* Bottom Fade */}
+                <div className="absolute inset-0 bg-linear-to-t from-neutral-950 via-transparent to-transparent" />
+            </div>
+
+
+            {/* Orange Glow */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 0.45, scale: 1 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="absolute top-1/3 left-1/2 w-96 h-96 bg-orange-500/40 rounded-full blur-3xl pointer-events-none"
+            />
+
+            <div className="relative z-10 mx-auto flex min-h-162.5 max-w-7xl items-center px-5 py-28 sm:px-8 lg:min-h-175 lg:px-10">
+                <div className="max-w-2xl">
+
+                    {/* Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5"
+                    >
+                        <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+
+                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500 sm:text-xs">
+                            Premium Fitness Platform
+                        </span>
+                    </motion.div>
+
+                    {/* Heading */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 35 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.7,
+                            delay: 0.1,
+                            ease: "easeOut",
+                        }}
+                        className="font-display text-5xl font-black uppercase leading-[0.88] tracking-tight sm:text-6xl md:text-7xl lg:text-[78px]"
+                    >
+                        Forge Your
+                        <br />
+                        <span className="font-body text-orange-500">
+                            Best Self.
+                        </span>
+                    </motion.h1>
+
+                    {/* Description */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 25 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.6,
+                            delay: 0.25,
+                        }}
+                        className="mt-6 max-w-xl text-sm leading-6 text-white/65 sm:text-base"
+                    >
+                        Discover elite fitness classes, connect with world-class
+                        trainers, and join a community that pushes limits together.
+                        Your transformation starts now.
+                    </motion.p>
+
+                    {/* Buttons */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 25 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.6,
+                            delay: 0.35,
+                        }}
+                        className="mt-7 flex flex-wrap items-center gap-3"
+                    >
+                        <Button
+                            type="button"
+                            className="group flex h-11 items-center gap-2 rounded-lg bg-orange-500 px-5 text-sm font-bold text-white shadow-[0_8px_30px_rgba(255,105,0,0.25)] transition-all duration-300 hover:bg-orange-600 hover:shadow-[0_8px_35px_rgba(255,105,0,0.4)]"
+                        >
+                            Explore Classes
+
+                            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </Button>
+
+                        <Button
+                            type="button"
+                            className="h-11 rounded-lg border border-white/20 bg-white/10 px-5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:border-orange-500/50 hover:bg-white/15"
+                        >
+                            Join Free
+                        </Button>
+                    </motion.div>
+
+                    {/* Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.7,
+                            delay: 0.5,
+                        }}
+                        className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 sm:gap-x-14"
+                    >
+                        {stats.map((stat, index) => {
+                            const Icon = stat.icon;
+
+                            return (
+                                <motion.div
+                                    key={stat.label}
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: 0.4,
+                                        delay: 0.55 + index * 0.1,
+                                    }}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <Icon className="size-3.5 text-orange-500" />
+
+                                        <span className="text-xl font-black text-orange-500 sm:text-2xl">
+                                            {stat.number}
+                                        </span>
+                                    </div>
+
+                                    <p className="mt-0.5 text-[9px] uppercase tracking-wide text-white/50 sm:text-[10px]">
+                                        {stat.label}
+                                    </p>
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default Banner;
