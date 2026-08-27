@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, Dumbbell, Users, Award } from "lucide-react";
+import { Users, Award, CalendarDays } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 
 const Banner = () => {
     const stats = [
@@ -18,14 +19,14 @@ const Banner = () => {
             label: "Expert Trainers",
         },
         {
-            icon: Dumbbell,
+            icon: CalendarDays,
             number: "200+",
             label: "Classes Weekly",
         },
     ];
 
     return (
-        <section className="relative overflow-hidden bg-black text-white">
+        <section className="relative min-h-[92vh] overflow-hidden bg-neutral-950">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <Image
@@ -59,11 +60,11 @@ const Banner = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5"
+                        className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1.5"
                     >
-                        <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
 
-                        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500 sm:text-xs">
+                        <span className="font-body text-[10px] font-semibold uppercase tracking-widest text-orange-400 sm:text-xs">
                             Premium Fitness Platform
                         </span>
                     </motion.div>
@@ -77,7 +78,7 @@ const Banner = () => {
                             delay: 0.1,
                             ease: "easeOut",
                         }}
-                        className="font-display text-5xl font-black uppercase leading-[0.88] tracking-tight sm:text-6xl md:text-7xl lg:text-[78px]"
+                        className="font-display font-black text-6xl sm:text-7xl lg:text-8xl text-white leading-none mb-6 uppercase"
                     >
                         Forge Your
                         <br />
@@ -94,7 +95,7 @@ const Banner = () => {
                             duration: 0.6,
                             delay: 0.25,
                         }}
-                        className="mt-6 max-w-xl text-sm leading-6 text-white/65 sm:text-base"
+                        className="text-neutral-300 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed"
                     >
                         Discover elite fitness classes, connect with world-class
                         trainers, and join a community that pushes limits together.
@@ -109,23 +110,24 @@ const Banner = () => {
                             duration: 0.6,
                             delay: 0.35,
                         }}
-                        className="mt-7 flex flex-wrap items-center gap-3"
+                        className="flex flex-wrap items-center gap-4"
                     >
-                        <Button
-                            type="button"
-                            className="group flex h-11 items-center gap-2 rounded-lg bg-orange-500 px-5 text-sm font-bold text-white shadow-[0_8px_30px_rgba(255,105,0,0.25)] transition-all duration-300 hover:bg-orange-600 hover:shadow-[0_8px_35px_rgba(255,105,0,0.4)]"
-                        >
-                            Explore Classes
+                        <Link href={'/classes'}>
+                            <Button
+                                className="font-body font group flex items-center px-8 py-6.5 bg-orange-500 text-white font-bold text-lg rounded-2xl hover:bg-orange-600 transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5"
+                            >
+                                Explore Classes
+                            </Button>
+                        </Link>
 
-                            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                        </Button>
-
-                        <Button
-                            type="button"
-                            className="h-11 rounded-lg border border-white/20 bg-white/10 px-5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:border-orange-500/50 hover:bg-white/15"
-                        >
-                            Join Free
-                        </Button>
+                        <Link href={'/register'}>
+                            <Button
+                                type="button"
+                                className="rounded-2xl border border-white/20 bg-white/10 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all duration-200 hover:border-orange-500/50 hover:bg-white/20"
+                            >
+                                Join Free
+                            </Button>
+                        </Link>
                     </motion.div>
 
                     {/* Stats */}
@@ -152,14 +154,14 @@ const Banner = () => {
                                     }}
                                 >
                                     <div className="flex items-center gap-2">
-                                        <Icon className="size-3.5 text-orange-500" />
+                                        <Icon className="size-5 text-orange-500" />
 
-                                        <span className="text-xl font-black text-orange-500 sm:text-2xl">
+                                        <span className="font-display text-xl font-black text-orange-500 sm:text-3xl">
                                             {stat.number}
                                         </span>
                                     </div>
 
-                                    <p className="mt-0.5 text-[9px] uppercase tracking-wide text-white/50 sm:text-[10px]">
+                                    <p className="mt-0.5 text-[9px] tracking-wide text-neutral-400 sm:text-xs">
                                         {stat.label}
                                     </p>
                                 </motion.div>
