@@ -189,7 +189,7 @@ const RegisterPage = () => {
                                 duration: 0.6,
                                 ease: "easeOut",
                             }}
-                            className="hidden lg:block"
+                            className="hidden -translate-y-30 lg:block"
                         >
                             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 font-body text-xs font-bold uppercase tracking-[0.16em] text-primary">
                                 <span className="size-1.5 rounded-full bg-primary" />

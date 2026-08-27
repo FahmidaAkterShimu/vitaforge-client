@@ -65,7 +65,7 @@ export default function Footer() {
                                     alt="VitaForge logo"
                                     width={40}
                                     height={40}
-                                    className="w-8 h-8"
+                                    className="w-9 h-9"
                                 />
                             </div>
 

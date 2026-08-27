@@ -144,7 +144,7 @@ const Navbar = () => {
                         />
 
 
-                        <h3 className="font-display text-xl font-bold text-foreground tracking-tight">
+                        <h3 className="font-display text-xl font-black text-foreground tracking-tight">
                             Vita
                             <span className="font-body text-primary">Forge</span>
                         </h3>
