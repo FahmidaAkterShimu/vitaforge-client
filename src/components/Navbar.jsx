@@ -140,7 +140,7 @@ const Navbar = () => {
                             alt='logo'
                             width={40}
                             height={40}
-                            className="w-8 h-8"
+                            className="w-9 h-9"
                         />
 
 

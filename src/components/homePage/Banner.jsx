@@ -26,7 +26,7 @@ const Banner = () => {
     ];
 
     return (
-        <section className="relative min-h-[92vh] overflow-hidden bg-neutral-950">
+        <section className="relative min-h-[93vh] overflow-hidden bg-neutral-950">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <Image
