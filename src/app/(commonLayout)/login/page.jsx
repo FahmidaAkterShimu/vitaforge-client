@@ -37,15 +37,26 @@ const LoginPage = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        role: "",
     });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setError("");
 
-        const { email, password } = formData;
+        const { email, password, role } = formData;
 
+        console.log("Form Data:", formData);
+
+        // Role validation
+        if (!role) {
+            setError("Please select a role to continue.");
+            return;
+        }
+
+        // Email & password validation
         if (!email.trim() || !password) {
             setError("Please enter your email and password.");
             return;
@@ -54,6 +65,7 @@ const LoginPage = () => {
         try {
             setLoading(true);
 
+            // Login with email and password only
             const { data, error: loginError } =
                 await authClient.signIn.email({
                     email: email.trim(),
@@ -61,7 +73,10 @@ const LoginPage = () => {
                     callbackURL: "/",
                 });
 
-            console.log({ data, loginError });
+            console.log("Login response:", {
+                data,
+                loginError,
+            });
 
             if (loginError) {
                 setError(
@@ -78,12 +93,52 @@ const LoginPage = () => {
             }
 
             if (data) {
+                // Get the authenticated user's session
+                const {
+                    data: sessionData,
+                    error: sessionError,
+                } = await authClient.getSession();
+
+                if (sessionError || !sessionData?.user) {
+                    setError("Unable to get user session.");
+                    toast.error("Unable to get user session.");
+                    return;
+                }
+
+                const userRole = sessionData.user.role;
+
+                // Check selected role against database/session role
+                if (userRole !== role) {
+                    // Logout because the selected role is incorrect
+                    await authClient.signOut();
+
+                    const roleName =
+                        userRole === "admin"
+                            ? "Admin"
+                            : userRole === "trainer"
+                                ? "Trainer"
+                                : "User";
+
+                    setError(
+                        `This account is registered as ${roleName}. Please select ${roleName} to login.`
+                    );
+
+                    toast.error(
+                        `Wrong role selected. This account is registered as ${roleName}.`
+                    );
+
+                    return;
+                }
+
+                // Correct role
                 toast.success("Login successful!");
 
                 router.push("/");
                 router.refresh();
             }
         } catch (err) {
+            console.error("Login error:", err);
+
             setError(
                 err?.message ||
                 "Something went wrong. Please try again."
@@ -97,6 +152,7 @@ const LoginPage = () => {
             setLoading(false);
         }
     };
+
 
     const handleGoogleLogin = async () => {
         try {
@@ -233,6 +289,47 @@ const LoginPage = () => {
                                 onSubmit={handleSubmit}
                                 className="space-y-5"
                             >
+
+                                {/* Role */}
+                                <div>
+                                    <Label className="mb-2 block font-body text-sm font-medium text-foreground">
+                                        Login As
+                                    </Label>
+
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {[
+                                            { value: "admin", label: "Admin" },
+                                            { value: "trainer", label: "Trainer" },
+                                            { value: "user", label: "User" },
+                                        ].map((role) => (
+                                            <Button
+                                                type="button"
+                                                key={role.value}
+                                                onPress={() => {
+                                                    console.log("Selected role:", role.value);
+
+                                                    setFormData((prev) => ({
+                                                        ...prev,
+                                                        role: role.value,
+                                                    }));
+                                                }}
+                                                className={`h-11 rounded-lg border font-body text-sm font-semibold transition-all ${formData.role === role.value
+                                                    ? "border-primary bg-primary text-white"
+                                                    : "border-border bg-surface-secondary text-foreground hover:border-primary/50"
+                                                    }`}
+                                            >
+                                                {role.label}
+                                            </Button>
+                                        ))}
+                                    </div>
+
+                                    {!formData.role && error === "Please select a role to continue." && (
+                                        <p className="mt-2 text-xs text-red-500">
+                                            Please select a role.
+                                        </p>
+                                    )}
+                                </div>
+
                                 {/* Email */}
                                 <TextField
                                     name="email"

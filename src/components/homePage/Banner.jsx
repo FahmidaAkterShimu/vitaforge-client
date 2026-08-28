@@ -5,8 +5,12 @@ import { Users, Award, CalendarDays } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const Banner = () => {
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+
     const stats = [
         {
             icon: Users,
@@ -120,14 +124,17 @@ const Banner = () => {
                             </Button>
                         </Link>
 
-                        <Link href={'/register'}>
-                            <Button
-                                type="button"
-                                className="rounded-2xl border border-white/20 bg-white/10 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all duration-200 hover:border-orange-500/50 hover:bg-white/20"
-                            >
-                                Join Free
-                            </Button>
-                        </Link>
+
+                        {!user && (
+                            <Link href={'/register'}>
+                                <Button
+                                    type="button"
+                                    className="rounded-2xl border border-white/20 bg-white/10 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all duration-200 hover:border-orange-500/50 hover:bg-white/20"
+                                >
+                                    Join Free
+                                </Button>
+                            </Link>
+                        )}
                     </motion.div>
 
                     {/* Stats */}

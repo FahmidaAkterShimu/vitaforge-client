@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { ArrowRight, Dumbbell } from "lucide-react";
 import { motion } from "motion/react";
+import { authClient } from "@/lib/auth-client";
 
 const ReadyToTransform = () => {
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+
     return (
         <section className="relative overflow-hidden bg-neutral-950 py-20 sm:py-24 lg:py-28">
             {/* Background Glow */}
@@ -107,9 +111,12 @@ const ReadyToTransform = () => {
                         sm:flex-row
                     "
                 >
-                    <Link
-                        href="/register"
-                        className="
+
+
+                    {!user && (
+                        <Link
+                            href="/register"
+                            className="
                             group
                             inline-flex
                             h-11
@@ -131,20 +138,21 @@ const ReadyToTransform = () => {
                             hover:-translate-y-0.5
                             hover:shadow-primary/30
                         "
-                    >
-                        <Dumbbell className="size-4" />
+                        >
+                            <Dumbbell className="size-4" />
 
-                        Start Your Journey
+                            Start Your Journey
 
-                        <ArrowRight
-                            className="
+                            <ArrowRight
+                                className="
                                 size-4
                                 transition-transform
                                 duration-300
                                 group-hover:translate-x-1
                             "
-                        />
-                    </Link>
+                            />
+                        </Link>
+                    )}
 
                     <Link
                         href="/classes"

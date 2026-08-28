@@ -29,6 +29,7 @@ import {
 } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
+import { uploadImage } from "@/utils/uploadImage";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -85,12 +86,13 @@ const RegisterPage = () => {
         setError("");
 
         const data = new FormData(e.currentTarget);
-        const user = Object.fromEntries(data.entries());
 
-        const name = user.name?.trim();
-        const email = user.email?.trim();
-        const password = user.password;
-        const confirmPassword = user.confirmPassword;
+        const name = data.get("name")?.trim();
+        const email = data.get("email")?.trim();
+        const password = data.get("password");
+        const confirmPassword = data.get("confirmPassword");
+
+        const imageFile = data.get("image");
 
         if (!name || !email || !password || !confirmPassword) {
             setError("Please fill in all required fields.");
@@ -114,23 +116,34 @@ const RegisterPage = () => {
         try {
             setLoading(true);
 
+            let imageUrl = "";
+
+            if (imageFile instanceof File && imageFile.size > 0) {
+                imageUrl = await uploadImage(imageFile);
+            }
+
             const { data: result, error: signupError } =
                 await authClient.signUp.email({
                     name,
                     email,
                     password,
-                    image: user.image || undefined,
+                    image: imageUrl,
+                    role: "user",
                     callbackURL: "/login",
                 });
+                
+            console.log({ result, signupError });
 
             if (signupError) {
                 setError(
                     signupError.message ||
                     "Unable to create your account. Please try again."
                 );
+
                 toast.error(
                     signupError.message || "Registration failed"
                 );
+
                 return;
             }
 
@@ -150,7 +163,8 @@ const RegisterPage = () => {
             );
 
             toast.error(
-                err?.message || "Something went wrong. Please try again."
+                err?.message ||
+                "Something went wrong. Please try again."
             );
         } finally {
             setLoading(false);
@@ -351,6 +365,8 @@ const RegisterPage = () => {
                                         ref={fileInputRef}
                                         type="file"
                                         accept="image/*"
+                                        id="image"
+                                        name="image"
                                         onChange={handleImageChange}
                                         className="hidden"
                                     />

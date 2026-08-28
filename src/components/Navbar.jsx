@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Avatar } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import { Menu, X } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -55,41 +55,41 @@ const Navbar = () => {
 
     const userId = session?.user?.id;
 
-    useEffect(() => {
-        const fetchLatestProfile = async () => {
-            if (!userId) {
-                setProfile(null);
-                return;
-            }
+    // useEffect(() => {
+    //     const fetchLatestProfile = async () => {
+    //         if (!userId) {
+    //             setProfile(null);
+    //             return;
+    //         }
 
-            try {
-                const { data: tokenData } = await authClient.token();
+    //         try {
+    //             const { data: tokenData } = await authClient.token();
 
-                const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${userId}`,
-                    {
-                        headers: {
-                            authorization: `Bearer ${tokenData?.token}`,
-                        },
-                    }
-                );
+    //             const response = await fetch(
+    //                 `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${userId}`,
+    //                 {
+    //                     headers: {
+    //                         authorization: `Bearer ${tokenData?.token}`,
+    //                     },
+    //                 }
+    //             );
 
-                const data = await response.json();
+    //             const data = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(
-                        data.message || "Failed to fetch profile"
-                    );
-                }
+    //             if (!response.ok) {
+    //                 throw new Error(
+    //                     data.message || "Failed to fetch profile"
+    //                 );
+    //             }
 
-                setProfile(data);
-            } catch (error) {
-                console.error("Navbar profile error:", error);
-            }
-        };
+    //             setProfile(data);
+    //         } catch (error) {
+    //             console.error("Navbar profile error:", error);
+    //         }
+    //     };
 
-        fetchLatestProfile();
-    }, [userId]);
+    //     fetchLatestProfile();
+    // }, [userId]);
 
     // ==========================================
     // Latest User
@@ -198,28 +198,13 @@ const Navbar = () => {
                             <div className="flex items-center gap-3">
                                 {/* User Avatar */}
 
-                                <Link
-                                    href="/dashboard"
-                                    className="flex items-center justify-center"
-                                    aria-label="Open dashboard"
-                                >
-                                    <Avatar
-                                        size="sm"
-                                        color="accent"
-                                        variant="soft"
-                                    >
-                                        <Avatar.Image
-                                            referrerPolicy="no-referrer"
-                                            alt={user?.name || "User"}
-                                            src={user?.image || ""}
-                                        />
+                                <Link href="/dashboard" className="flex items-center justify-center" aria-label="Open dashboard">
+                                    <Avatar size="8" variant="soft" className="border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md">
+                                        <Avatar.Image referrerPolicy="no-referrer" alt={user?.name || "User"} src={user?.image || ""} />
 
-                                        <Avatar.Fallback>
+                                        <Avatar.Fallback className="font-bold tracking-wide text-orange-600 dark:text-orange-400">
                                             {user?.name
-                                                ? user.name
-                                                    .trim()
-                                                    .slice(0, 2)
-                                                    .toUpperCase()
+                                                ? user.name.trim().slice(0, 2).toUpperCase()
                                                 : "VF"}
                                         </Avatar.Fallback>
                                     </Avatar>
@@ -227,19 +212,19 @@ const Navbar = () => {
 
                                 {/* User Name */}
 
-                                <span className="hidden lg:block max-w-28 truncate font-body text-xs font-semibold text-foreground">
+                                <span className="hidden lg:block max-w-28 truncate font-body text-base font-semibold text-foreground">
                                     {user?.name}
                                 </span>
 
                                 {/* Logout */}
 
-                                <button
+                                <Button
                                     type="button"
                                     onClick={handleLogout}
                                     className="font-body text-sm font-semibold bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors"
                                 >
                                     Logout
-                                </button>
+                                </Button>
                             </div>
                         )}
 
@@ -280,8 +265,7 @@ const Navbar = () => {
                             >
                                 <Avatar
                                     size="sm"
-                                    color="accent"
-                                    variant="soft"
+                                    variant="soft" className="border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md"
                                 >
                                     <Avatar.Image
                                         referrerPolicy="no-referrer"
@@ -303,10 +287,11 @@ const Navbar = () => {
 
                         {/* Mobile Hamburger */}
 
-                        <button
+                        <Button
                             onClick={() => setIsOpen(!isOpen)}
-                            type="button"
-                            className="inline-flex items-center justify-center p-2 rounded-md text-primary hover:bg-surface-secondary focus:outline-none transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-primary 
+                            bg-background/95
+                            hover:bg-surface-secondary focus:outline-none transition-colors"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                             aria-label={
@@ -320,7 +305,7 @@ const Navbar = () => {
                             ) : (
                                 <Menu className="h-6 w-6" />
                             )}
-                        </button>
+                        </Button>
                     </div>
                 </div>
 
@@ -393,16 +378,15 @@ const Navbar = () => {
             ================================== */}
 
                         {!isPending && user && (
-                            <button
+                            <Button
                                 onClick={() => {
                                     setIsOpen(false);
                                     handleLogout();
                                 }}
-                                type="button"
                                 className="w-full bg-primary hover:bg-primary-hover text-white text-center py-3 rounded-lg font-body text-sm font-semibold transition-colors shadow-sm cursor-pointer"
                             >
                                 Logout
-                            </button>
+                            </Button>
                         )}
                     </div>
                 </div>
