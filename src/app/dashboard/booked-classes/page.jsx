@@ -5,7 +5,7 @@ import { Eye, CalendarDays } from "lucide-react";
 
 const bookedClasses = [];
 
-export default function BookedClassesPage() {
+const BookedClassesPage = () => {
     return (
         <div className="space-y-7">
             <div>
@@ -112,3 +112,5 @@ export default function BookedClassesPage() {
         </div>
     );
 }
+
+export default BookedClassesPage;
