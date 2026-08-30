@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Dumbbell, Send } from "lucide-react";
 import { toast } from "react-toastify";
 import { motion } from "motion/react";
+import { createApplication } from "@/lib/actions/applications";
 
 const ApplyTrainerPage = () => {
     const [formData, setFormData] = useState({
@@ -24,30 +25,31 @@ const ApplyTrainerPage = () => {
         try {
             setLoading(true);
 
-            /*
-             * Later connect this to your Express API:
-             *
-             * await fetch(
-             *     `${process.env.NEXT_PUBLIC_BASE_URL}/trainer/apply`,
-             *     {
-             *         method: "POST",
-             *         headers: {
-             *             "Content-Type": "application/json",
-             *         },
-             *         body: JSON.stringify(formData),
-             *     }
-             * );
-             */
+            const res = await createApplication({
+                experience: formData.experience,
+                specialty: formData.specialty,
+            })
 
-            toast.success(
-                "Trainer application submitted successfully."
+            if (res.insertedId) {
+                toast.success(
+                    "Trainer application submitted successfully."
+                );
+
+                setFormData({
+                    experience: "",
+                    specialty: "",
+                });
+
+                return;
+            }
+
+            toast.error(
+                data?.message || "Failed to submit application."
             );
 
-            setFormData({
-                experience: "",
-                specialty: "",
-            });
         } catch (error) {
+            console.error("Application submit error:", error);
+
             toast.error(
                 error?.message || "Failed to submit application."
             );

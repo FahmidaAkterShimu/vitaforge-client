@@ -18,22 +18,22 @@ import Logo from "../shared/Logo";
 const navigation = [
     {
         label: "Overview",
-        href: "/dashboard",
+        href: "/dashboard/user",
         icon: BarChart3,
     },
     {
         label: "Booked Classes",
-        href: "/dashboard/booked-classes",
+        href: "/dashboard/user/booked-classes",
         icon: CalendarCheck2,
     },
     {
         label: "Apply as Trainer",
-        href: "/dashboard/apply-trainer",
+        href: "/dashboard/user/apply-trainer",
         icon: Dumbbell,
     },
     {
         label: "Favorite Classes",
-        href: "/dashboard/favorites",
+        href: "/dashboard/user/favorites",
         icon: Heart,
     },
 ];
@@ -84,7 +84,7 @@ const UserDashboardSidebar = ({
 
                 <Button
                     onClick={onClose}
-                    className="flex size-9 items-center justify-center rounded-lg bg-muted/5 border border-border text-foregrond hover:border-primary hover:text-primary lg:hidden"
+                    className="flex size-9 items-center justify-center rounded-lg bg-muted/5 border border-border text-foregrond hover:border-primary hover:text-primary lg:hidden cursor-pointer"
                     aria-label="Close dashboard menu"
                 >
                     <X className="size-4 text-foreground" />
@@ -127,8 +127,8 @@ const UserDashboardSidebar = ({
                         const Icon = item.icon;
 
                         const isActive =
-                            item.href === "/dashboard"
-                                ? pathname === "/dashboard"
+                            item.href === "/dashboard/user"
+                                ? pathname === "/dashboard/user"
                                 : pathname.startsWith(item.href);
 
                         return (

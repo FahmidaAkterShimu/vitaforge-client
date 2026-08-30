@@ -150,7 +150,7 @@ const Navbar = () => {
 
                         {!isPending && user && (
                             <Link
-                                href="/dashboard"
+                                href="/dashboard/user"
                                 className={`font-body text-sm font-medium transition-colors ${pathName.startsWith("/dashboard") ? "text-primary font-semibold" : "text-foreground hover:text-primary"}`}
                             >
                                 Dashboard
@@ -179,7 +179,8 @@ const Navbar = () => {
                             <div className="flex items-center gap-3">
                                 {/* User Avatar */}
 
-                                <Link href="/dashboard" className="flex items-center justify-center" aria-label="Open dashboard">
+                                <Link href="/dashboard/user"
+                                    className="flex items-center justify-center" aria-label="Open dashboard">
                                     <Avatar size="8" variant="soft" className="border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md">
                                         <Avatar.Image referrerPolicy="no-referrer" alt={user?.name || "User"} src={user?.image || ""} />
 
@@ -241,7 +242,7 @@ const Navbar = () => {
 
                         {!isPending && user && (
                             <Link
-                                href="/dashboard"
+                                href="/dashboard/user"
                                 aria-label="Open dashboard"
                             >
                                 <Avatar
@@ -322,7 +323,7 @@ const Navbar = () => {
 
                         {!isPending && user && (
                             <Link
-                                href="/dashboard"
+                                href="/dashboard/user"
                                 onClick={() => setIsOpen(false)}
                                 className={`font-body text-sm font-medium transition-colors ${pathName.startsWith("/dashboard") ? "text-primary font-semibold" : "text-foreground hover:text-primary"}`}
                             >

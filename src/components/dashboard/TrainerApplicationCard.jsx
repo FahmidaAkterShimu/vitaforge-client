@@ -28,15 +28,6 @@ const TrainerApplicationCard = ({
                 "Your application was not approved at this time.",
         },
 
-        approved: {
-            label: "Application Approved",
-            icon: CheckCircle2,
-            className:
-                "border-green-500/20 bg-green-500/10 text-green-600 dark:text-green-400",
-            description:
-                "Congratulations! Your trainer application has been approved.",
-        },
-
         not_applied: {
             label: "Not Applied",
             icon: Dumbbell,

@@ -24,7 +24,7 @@ const DashboardStatCard = ({
         >
             <div className="flex items-start justify-between gap-4">
                 <div>
-                    <p className="font-body text-xs font-semibold uppercase tracking-wider text-muted">
+                    <p className="font-display text-base font-semibold uppercase tracking-wider text-muted">
                         {title}
                     </p>
 

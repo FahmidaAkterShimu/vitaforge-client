@@ -70,7 +70,6 @@ const LoginPage = () => {
                 await authClient.signIn.email({
                     email: email.trim(),
                     password,
-                    callbackURL: "/",
                 });
 
             console.log("Login response:", {
@@ -119,13 +118,9 @@ const LoginPage = () => {
                                 ? "Trainer"
                                 : "User";
 
-                    setError(
-                        `This account is registered as ${roleName}. Please select ${roleName} to login.`
-                    );
+                    setError("The selected role is incorrect.");
 
-                    toast.error(
-                        `Wrong role selected. This account is registered as ${roleName}.`
-                    );
+                    toast.error("Please select the correct role and try again.");
 
                     return;
                 }

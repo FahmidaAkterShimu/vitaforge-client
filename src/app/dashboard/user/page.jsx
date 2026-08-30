@@ -4,8 +4,8 @@ import Link from "next/link";
 import {
     ArrowRight,
     CalendarCheck2,
-    Heart,
-    UserRound
+    Dumbbell,
+    Heart
 } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -15,7 +15,6 @@ import TrainerApplicationCard from "@/components/dashboard/TrainerApplicationCar
 import { authClient } from "@/lib/auth-client";
 
 const dashboardData = {
-    member: "User",
     bookedClasses: 0,
     favorites: 0,
     trainerApplication: {
@@ -77,7 +76,7 @@ export default function DashboardPage() {
             {/* =========================
                 Stats
             ========================== */}
-            <section className="grid gap-4 sm:grid-cols-3">
+            <section className="grid gap-4 sm:grid-cols-2">
                 <DashboardStatCard
                     title="Booked Classes"
                     value={dashboardData.bookedClasses}
@@ -90,12 +89,6 @@ export default function DashboardPage() {
                     value={dashboardData.favorites}
                     description="Classes saved to your favorites"
                     icon={Heart}
-                />
-
-                <DashboardStatCard
-                    title="Member"
-                    value={dashboardData.member}
-                    icon={UserRound}
                 />
             </section>
 
@@ -127,24 +120,24 @@ export default function DashboardPage() {
 
                 <div className="grid gap-4 md:grid-cols-3">
                     <QuickAction
-                        href="/dashboard/booked-classes"
+                        href="/dashboard/user/booked-classes"
                         title="Booked Classes"
                         description="View your registered classes and schedules."
                         icon={CalendarCheck2}
                     />
 
                     <QuickAction
-                        href="/dashboard/favorites"
+                        href="/dashboard/user/favorites"
                         title="Favorite Classes"
                         description="Manage the classes you've saved."
                         icon={Heart}
                     />
 
                     <QuickAction
-                        href="/dashboard/apply-trainer"
+                        href="/dashboard/user/apply-trainer"
                         title="Become a Trainer"
                         description="Apply to join VitaForge as a trainer."
-                        icon={ArrowRight}
+                        icon={Dumbbell}
                     />
                 </div>
             </section>

@@ -36,7 +36,6 @@ const RegisterPage = () => {
     const fileInputRef = useRef(null);
 
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState("");
@@ -48,7 +47,6 @@ const RegisterPage = () => {
         name: "",
         email: "",
         password: "",
-        confirmPassword: "",
     });
 
     const handleImageChange = (e) => {
@@ -90,11 +88,10 @@ const RegisterPage = () => {
         const name = data.get("name")?.trim();
         const email = data.get("email")?.trim();
         const password = data.get("password");
-        const confirmPassword = data.get("confirmPassword");
 
         const imageFile = data.get("image");
 
-        if (!name || !email || !password || !confirmPassword) {
+        if (!name || !email || !password) {
             setError("Please fill in all required fields.");
             return;
         }
@@ -108,11 +105,6 @@ const RegisterPage = () => {
             return;
         }
 
-        if (password !== confirmPassword) {
-            setError("Passwords do not match.");
-            return;
-        }
-
         try {
             setLoading(true);
 
@@ -121,6 +113,9 @@ const RegisterPage = () => {
             if (imageFile instanceof File && imageFile.size > 0) {
                 imageUrl = await uploadImage(imageFile);
             }
+
+            console.log("PASSWORD:", password);
+            console.log("PASSWORD LENGTH:", password.length);
 
             const { data: result, error: signupError } =
                 await authClient.signUp.email({
@@ -131,7 +126,7 @@ const RegisterPage = () => {
                     role: "user",
                     callbackURL: "/login",
                 });
-                
+
             console.log({ result, signupError });
 
             if (signupError) {
@@ -307,7 +302,6 @@ const RegisterPage = () => {
                                         <UserRound className="pointer-events-none absolute left-3.5 top-1/2 z-10 size-4 -translate-y-1/2 text-muted" />
 
                                         <Input
-                                            name="name"
                                             placeholder="Enter your full name"
                                             className="h-12 w-full rounded-lg border border-border bg-surface-secondary pl-11 font-body text-sm text-foreground outline-none transition-all duration-200 placeholder:text-muted/60 focus:border-primary"
                                         />
@@ -342,7 +336,6 @@ const RegisterPage = () => {
                                         <Mail className="pointer-events-none absolute left-3.5 top-1/2 z-10 size-4 -translate-y-1/2 text-muted" />
 
                                         <Input
-                                            name="email"
                                             type="email"
                                             placeholder="you@example.com"
                                             className="h-12 w-full rounded-lg border border-border bg-surface-secondary pl-11 font-body text-sm text-foreground outline-none transition-all duration-200 placeholder:text-muted/60 focus:border-primary"
@@ -354,12 +347,12 @@ const RegisterPage = () => {
 
                                 {/* Image */}
                                 <div>
-                                    <label className="mb-2 block font-body text-sm font-medium text-foreground">
+                                    <Label className="mb-2 block font-body text-sm font-medium text-foreground">
                                         Profile Image
                                         <span className="ml-1 text-muted">
                                             (optional)
                                         </span>
-                                    </label>
+                                    </Label>
 
                                     <input
                                         ref={fileInputRef}
@@ -458,7 +451,6 @@ const RegisterPage = () => {
                                         <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 z-10 size-4 -translate-y-1/2 text-muted" />
 
                                         <Input
-                                            name="password"
                                             type={
                                                 showPassword
                                                     ? "text"
@@ -495,95 +487,9 @@ const RegisterPage = () => {
                                     <FieldError />
 
                                     <p className="mt-2 font-body text-xs text-muted">
-                                        6+ characters · 1 uppercase · 1 lowercase
+                                        At least 6 characters · 1 uppercase · 1 lowercase
                                     </p>
                                 </TextField>
-
-                                {/* Confirm password */}
-                                <TextField
-                                    name="confirmPassword"
-                                    type={
-                                        showConfirmPassword
-                                            ? "text"
-                                            : "password"
-                                    }
-                                    isRequired
-                                    value={formData.confirmPassword}
-                                    onChange={(value) => {
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            confirmPassword: value,
-                                        }));
-
-                                        if (error) {
-                                            setError("");
-                                        }
-                                    }}
-                                    className="w-full"
-                                >
-                                    <Label className="mb-2 block font-body text-sm font-medium text-foreground">
-                                        Confirm Password
-                                    </Label>
-
-                                    <div className="relative">
-                                        <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 z-10 size-4 -translate-y-1/2 text-muted" />
-
-                                        <Input
-                                            name="confirmPassword"
-                                            type={
-                                                showConfirmPassword
-                                                    ? "text"
-                                                    : "password"
-                                            }
-                                            placeholder="Confirm your password"
-                                            className="h-12 w-full rounded-lg border border-border bg-surface-secondary pl-11 pr-11 font-body text-sm text-foreground outline-none transition-all duration-200 placeholder:text-muted/60 focus:border-primary"
-                                        />
-
-                                        <Button
-                                            type="button"
-                                            onPress={() =>
-                                                setShowConfirmPassword(
-                                                    (prev) => !prev
-                                                )
-                                            }
-                                            variant="light"
-                                            isIconOnly
-                                            className="absolute right-3 top-1/2 z-10 size-8 -translate-y-1/2 rounded-full text-muted transition-colors hover:text-foreground"
-                                            aria-label={
-                                                showConfirmPassword
-                                                    ? "Hide password"
-                                                    : "Show password"
-                                            }
-                                        >
-                                            {showConfirmPassword ? (
-                                                <Eye className="size-4" />
-                                            ) : (
-                                                <EyeOff className="size-4" />
-                                            )}
-                                        </Button>
-                                    </div>
-
-                                    <FieldError />
-                                </TextField>
-
-                                {/* Terms and policy */}
-                                <p className="font-body text-xs leading-5 text-muted">
-                                    By creating an account, you agree to our{" "}
-                                    <Link
-                                        href="/terms"
-                                        className="font-medium text-primary hover:text-primary-hover"
-                                    >
-                                        Terms of Service
-                                    </Link>{" "}
-                                    and{" "}
-                                    <Link
-                                        href="/privacy"
-                                        className="font-medium text-primary hover:text-primary-hover"
-                                    >
-                                        Privacy Policy
-                                    </Link>
-                                    .
-                                </p>
 
                                 <Button
                                     type="submit"
