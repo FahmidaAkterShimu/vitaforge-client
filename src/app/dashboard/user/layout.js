@@ -5,7 +5,6 @@ import { Menu, X } from "lucide-react";
 import UserDashboardSidebar from "@/components/dashboard/UserDashboardSidebar";
 import { Button } from "@heroui/react";
 import Logo from "@/components/shared/Logo";
-import { Providers } from "@/providers/ThemeProvider";
 
 export default function DashboardLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -43,13 +42,11 @@ export default function DashboardLayout({ children }) {
             />
 
             {/* Main Content */}
-            <Providers>
-                <main className="min-h-screen lg:ml-72">
-                    <div className="mx-auto w-full max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-                        {children}
-                    </div>
-                </main>
-            </Providers>
+            <main className="min-h-screen lg:ml-72">
+                <div className="mx-auto w-full max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+                    {children}
+                </div>
+            </main>
         </div>
     );
 }

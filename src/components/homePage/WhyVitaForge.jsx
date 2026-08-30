@@ -107,10 +107,7 @@ const WhyVitaForge = () => {
                                 whileHover={{
                                     y: -4,
                                 }}
-                                className="
-                                    group
-                                    p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 group transition-colors duration-300
-                                "
+                                className="group p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 group transition-colors duration-300"
                             >
                                 {/* Icon */}
                                 <motion.div
@@ -121,17 +118,7 @@ const WhyVitaForge = () => {
                                     transition={{
                                         duration: 0.2,
                                     }}
-                                    className="
-                                        mb-5
-                                        flex size-10
-                                        items-center justify-center
-                                        rounded-lg
-                                        bg-primary/10
-                                        text-primary
-                                        transition-colors duration-300
-                                        group-hover:bg-primary
-                                        group-hover:text-white
-                                    "
+                                    className="mb-5 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white"
                                 >
                                     <Icon
                                         className="size-5"
