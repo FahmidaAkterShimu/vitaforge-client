@@ -9,9 +9,9 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 
-import DashboardStatCard from "@/components/dashboard/DashboardStatCard";
-import DashboardProfileCard from "@/components/dashboard/DashboardProfileCard";
-import TrainerApplicationCard from "@/components/dashboard/TrainerApplicationCard";
+import UserDashboardStatCard from "@/components/dashboard/user/UserDashboardStatCard";
+import UserProfileCard from "@/components/dashboard/user/UserProfileCard";
+import TrainerApplicationCard from "@/components/dashboard/user/TrainerApplicationCard";
 import { authClient } from "@/lib/auth-client";
 
 const dashboardData = {
@@ -23,7 +23,7 @@ const dashboardData = {
     },
 };
 
-export default function DashboardPage() {
+const DashboardPage = () => {
     const { data: session, isPending } = authClient.useSession();
 
     if (isPending) {
@@ -77,14 +77,14 @@ export default function DashboardPage() {
                 Stats
             ========================== */}
             <section className="grid gap-4 sm:grid-cols-2">
-                <DashboardStatCard
+                <UserDashboardStatCard
                     title="Booked Classes"
                     value={dashboardData.bookedClasses}
                     description="Classes you've registered for"
                     icon={CalendarCheck2}
                 />
 
-                <DashboardStatCard
+                <UserDashboardStatCard
                     title="Favorite Classes"
                     value={dashboardData.favorites}
                     description="Classes saved to your favorites"
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                 Main Grid
             ========================== */}
             <section className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
-                <DashboardProfileCard user={user} />
+                <UserProfileCard user={user} />
 
                 <TrainerApplicationCard
                     status={dashboardData.trainerApplication.status}
@@ -198,3 +198,5 @@ function DashboardSkeleton() {
         </div>
     );
 }
+
+export default DashboardPage;

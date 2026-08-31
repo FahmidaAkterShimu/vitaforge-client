@@ -1,7 +1,7 @@
 import { Avatar } from "@heroui/react";
 import { Mail, ShieldCheck, UserRound } from "lucide-react";
 
-const DashboardProfileCard = ({ user }) => {
+const UserProfileCard = ({ user }) => {
     const name = user?.name || "VitaForge Member";
     const email = user?.email || "member@example.com";
     const image = user?.image;
@@ -31,7 +31,7 @@ const DashboardProfileCard = ({ user }) => {
                     User
                 </div>
             </div>
-
+ 
             <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
 
                 <Avatar size="lg" variant="soft" className="h-20 w-20 rounded-full border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md">
@@ -75,4 +75,4 @@ const DashboardProfileCard = ({ user }) => {
     );
 }
 
-export default DashboardProfileCard;
+export default UserProfileCard;

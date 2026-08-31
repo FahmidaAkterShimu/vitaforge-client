@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-const DashboardStatCard = ({
+const UserDashboardStatCard = ({
     title,
     value,
     description,
@@ -45,4 +45,4 @@ const DashboardStatCard = ({
     );
 }
 
-export default DashboardStatCard;
+export default UserDashboardStatCard;

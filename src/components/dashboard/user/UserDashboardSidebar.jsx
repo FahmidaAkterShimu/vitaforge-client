@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
-import Logo from "../shared/Logo";
+import Logo from "../../shared/Logo";
 
 const navigation = [
     {

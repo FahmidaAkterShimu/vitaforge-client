@@ -1,6 +1,5 @@
 import {
     AlertCircle,
-    CheckCircle2,
     Clock3,
     Dumbbell,
 } from "lucide-react";

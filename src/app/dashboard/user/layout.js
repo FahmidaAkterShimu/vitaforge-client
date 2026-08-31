@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import UserDashboardSidebar from "@/components/dashboard/UserDashboardSidebar";
+import UserDashboardSidebar from "@/components/dashboard/user/UserDashboardSidebar";
 import { Button } from "@heroui/react";
 import Logo from "@/components/shared/Logo";
 
