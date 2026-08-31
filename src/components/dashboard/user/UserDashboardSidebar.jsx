@@ -80,20 +80,7 @@ const UserDashboardSidebar = () => {
 
             {/* Sidebar */}
             <aside
-                className={`
-                fixed
-                inset-y-0
-                left-0
-                z-50
-                flex
-                w-72
-                flex-col
-                border-r
-                border-border
-                bg-surface
-                transition-transform
-                duration-300
-                lg:translate-x-0
+                className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-border bg-surface transition-transform duration-300 lg:translate-x-0
                 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
             `}
             >
@@ -151,18 +138,7 @@ const UserDashboardSidebar = () => {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`
-                                    group
-                                    flex
-                                    items-center
-                                    gap-3
-                                    rounded-xl
-                                    px-3
-                                    py-3
-                                    font-body
-                                    text-sm
-                                    font-semibold
-                                    transition-all
+                                    className={`group flex items-center gap-3 rounded-xl px-3 py-3 font-body text-sm font-semibold transition-all
                                     ${isActive
                                             ? "bg-primary text-white shadow-sm"
                                             : "text-muted hover:bg-surface-secondary hover:text-foreground"
@@ -170,9 +146,7 @@ const UserDashboardSidebar = () => {
                                 `}
                                 >
                                     <Icon
-                                        className={`
-                                        size-4.5
-                                        shrink-0
+                                        className={`size-4.5 shrink-0
                                         ${isActive
                                                 ? "text-white"
                                                 : "text-muted group-hover:text-primary"

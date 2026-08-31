@@ -11,16 +11,7 @@ const UserDashboardStatCard = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="
-                rounded-2xl
-                border
-                border-border
-                bg-surface
-                p-5
-                shadow-sm
-                transition-colors
-                hover:border-primary/30
-            "
+            className="rounded-2xl border border-border bg-surface p-5 shadow-sm transition-colors hover:border-primary/30"
         >
             <div className="flex items-start justify-between gap-4">
                 <div>

@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import { Button } from "@heroui/react";
 import ThemeToggler from "@/lib/ThemeToggler";
 
-export default function UserDashboardHeader() {
+const UserDashboardHeader = () => {
     return (
         <header className="fixed left-0 right-0 top-0 z-40 flex h-20 items-center justify-between border-b border-border bg-background/90 px-4 pl-16 backdrop-blur-md sm:px-6 sm:pl-18 lg:left-72 lg:px-8 lg:pl-8">
 
@@ -36,3 +36,5 @@ export default function UserDashboardHeader() {
         </header>
     );
 }
+
+export default UserDashboardHeader;

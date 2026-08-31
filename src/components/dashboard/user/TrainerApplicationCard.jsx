@@ -12,28 +12,22 @@ const TrainerApplicationCard = ({
         pending: {
             label: "Pending Review",
             icon: Clock3,
-            className:
-                "border-yellow-500/20 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
-            description:
-                "Your trainer application is currently being reviewed by the admin.",
+            className: "border-yellow-500/20 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
+            description: "Your trainer application is currently being reviewed by the admin.",
         },
 
         rejected: {
             label: "Application Rejected",
             icon: AlertCircle,
-            className:
-                "border-red-500/20 bg-red-500/10 text-red-600 dark:text-red-400",
-            description:
-                "Your application was not approved at this time.",
+            className: "border-red-500/20 bg-red-500/10 text-red-600 dark:text-red-400",
+            description: "Your application was not approved at this time.",
         },
 
         not_applied: {
             label: "Not Applied",
             icon: Dumbbell,
-            className:
-                "border-border bg-surface-secondary text-muted",
-            description:
-                "You haven't submitted a trainer application yet.",
+            className: "border-border bg-surface-secondary text-muted",
+            description: "You haven't submitted a trainer application yet.",
         },
     };
 
