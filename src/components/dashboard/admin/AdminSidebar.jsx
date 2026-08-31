@@ -108,11 +108,7 @@ export default function AdminSidebar() {
 
             {/* Sidebar */}
             <aside
-                className={`
-                    fixed inset-y-0 left-0 z-50 w-72
-                    border-r border-border bg-surface 
-                    transition-transform duration-300
-                    lg:translate-x-0 
+                className={`fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-surface transition-transform duration-300 lg:translate-x-0 
                     ${open ? "translate-x-0" : "-translate-x-full"}
         `}
             >
@@ -172,19 +168,14 @@ export default function AdminSidebar() {
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setOpen(false)}
-                                    className={`
-                                        group flex items-center gap-3 rounded-xl
-                                        px-4 py-3 text-sm font-semibold
-                                        transition-all duration-200
+                                    className={`group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200
                                         ${isActive
                                             ? "bg-primary text-white shadow-sm"
                                             : "text-muted hover:bg-surface-secondary hover:text-foreground"
                                         }
                                     `}
                                 >
-                                    <Icon className={`
-                                        size-4.5
-                                        shrink-0
+                                    <Icon className={`size-4.5 shrink-0
                                         ${isActive
                                             ? "text-white"
                                             : "text-muted group-hover:text-primary"

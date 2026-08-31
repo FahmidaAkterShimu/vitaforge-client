@@ -2,9 +2,9 @@ import AdminProfileCard from "@/components/dashboard/admin/AdminProfileCard";
 import { auth } from "@/lib/auth";
 import {
     Users,
-    Dumbbell,
-    CalendarCheck,
+    CalendarCheck2,
     ArrowUpRight,
+    BookOpen,
 } from "lucide-react";
 import { headers } from "next/headers";
 
@@ -17,12 +17,12 @@ const stats = [
     {
         title: "Total Classes",
         value: "86",
-        icon: Dumbbell,
+        icon: BookOpen,
     },
     {
         title: "Booked Classes",
         value: "3,492",
-        icon: CalendarCheck,
+        icon: CalendarCheck2,
     },
 ];
 
