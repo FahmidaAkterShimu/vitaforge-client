@@ -7,7 +7,6 @@ const Logo = () => {
         <div>
             <Link
                 href="/"
-                onClick={() => setIsOpen(false)}
                 className="flex items-center gap-2"
             >
                 {/* VitaForge Logo */}

@@ -23,7 +23,7 @@ const dashboardData = {
     },
 };
 
-const DashboardPage = () => {
+const UserDashboardPage = () => {
     const { data: session, isPending } = authClient.useSession();
 
     if (isPending) {
@@ -65,7 +65,7 @@ const DashboardPage = () => {
 
                     <Link
                         href="/classes"
-                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-body text-sm font-bold text-white transition-colors hover:bg-primary-hover"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
                     >
                         Explore Classes
                         <ArrowRight className="size-4" />
@@ -199,4 +199,4 @@ function DashboardSkeleton() {
     );
 }
 
-export default DashboardPage;
+export default UserDashboardPage;

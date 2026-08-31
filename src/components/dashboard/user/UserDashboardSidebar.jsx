@@ -92,7 +92,7 @@ const UserDashboardSidebar = ({
             </div>
 
             {/* User Mini Profile */}
-            <div className="mx-4 mt-5 rounded-xl border border-border bg-surface-secondary p-4">
+            <div className="mx-4 mt-5 rounded-xl border border-primary/20 bg-primary/5 p-4">
                 <div className="flex items-center gap-3">
                     <Avatar size="lg" variant="soft" className="border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md">
                         <Avatar.Image referrerPolicy="no-referrer" alt={user?.name || "User"} src={user?.image || ""} />

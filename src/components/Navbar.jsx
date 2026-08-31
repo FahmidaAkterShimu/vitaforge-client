@@ -14,18 +14,10 @@ import Image from "next/image";
 import Logo from "./shared/Logo";
 
 const Navbar = () => {
-    // ==========================================
-    // Route
-    // ==========================================
-
     const pathName = usePathname();
     const router = useRouter();
 
     const isActive = (path) => pathName === path;
-
-    // ==========================================
-    // Navigation Links
-    // ==========================================
 
     const navLinks = [
         {
@@ -42,15 +34,7 @@ const Navbar = () => {
         },
     ];
 
-    // ==========================================
-    // User Session
-    // ==========================================
-
     const { data: session, isPending } = authClient.useSession();
-
-    // ==========================================
-    // Latest Profile Data
-    // ==========================================
 
     const [profile, setProfile] = useState(null);
 
@@ -98,10 +82,7 @@ const Navbar = () => {
 
     const user = profile || session?.user;
 
-    // ==========================================
     // Logout
-    // ==========================================
-
     const handleLogout = async () => {
         await authClient.signOut({
             fetchOptions: {
@@ -115,26 +96,19 @@ const Navbar = () => {
         });
     };
 
-    // ==========================================
     // Mobile Menu
-    // ==========================================
-
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div>
             <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-                    {/* =====================================
-              Logo
-          ====================================== */}
 
+                    {/* Logo */}
                     <Logo />
 
-                    {/* =====================================
-              Desktop Navigation
-          ====================================== */}
 
+                    {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
                             <Link
@@ -146,8 +120,8 @@ const Navbar = () => {
                             </Link>
                         ))}
 
-                        {/* Dashboard only when logged in */}
 
+                        {/* Dashboard only when logged in */}
                         {!isPending && user && (
                             <Link
                                 href="/dashboard"
@@ -158,10 +132,8 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    {/* =====================================
-              Desktop Right Side
-          ====================================== */}
 
+                    {/* Desktop Right Side */}
                     <div className="hidden md:flex items-center gap-3">
                         <ThemeToggler />
 
@@ -171,14 +143,12 @@ const Navbar = () => {
                             <div className="h-9 w-24 animate-pulse rounded-lg bg-surface-secondary" />
                         )}
 
-                        {/* =================================
-                LOGGED IN
-            ================================== */}
 
+                        {/* LOGGED IN */}
                         {!isPending && user && (
                             <div className="flex items-center gap-3">
-                                {/* User Avatar */}
 
+                                {/* User Avatar */}
                                 <Link href="/dashboard"
                                     className="flex items-center justify-center" aria-label="Open dashboard">
                                     <Avatar size="8" variant="soft" className="border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400 shadow-sm transition-all duration-200 hover:border-orange-500/60 dark:hover:border-orange-500/70 hover:bg-orange-500/20 hover:shadow-md">
@@ -192,14 +162,14 @@ const Navbar = () => {
                                     </Avatar>
                                 </Link>
 
-                                {/* User Name */}
 
+                                {/* User Name */}
                                 <span className="hidden lg:block max-w-28 truncate font-body text-base font-semibold text-foreground">
                                     {user?.name}
                                 </span>
 
-                                {/* Logout */}
 
+                                {/* Logout */}
                                 <Button
                                     type="button"
                                     onClick={handleLogout}
@@ -210,10 +180,8 @@ const Navbar = () => {
                             </div>
                         )}
 
-                        {/* =================================
-                LOGGED OUT
-            ================================== */}
 
+                        {/* LOGGED OUT */}
                         {!isPending && !user && (
                             <div className="flex items-center gap-3">
                                 <Link
@@ -233,13 +201,11 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    {/* =====================================
-              Mobile Right Side
-          ====================================== */}
 
+                    {/* Mobile Right Side */}
                     <div className="md:hidden flex items-center gap-2">
-                        {/* Mobile User Avatar */}
 
+                        {/* Mobile User Avatar */}
                         {!isPending && user && (
                             <Link
                                 href="/dashboard"
@@ -268,12 +234,9 @@ const Navbar = () => {
                         )}
 
                         {/* Mobile Hamburger */}
-
                         <Button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-primary 
-                            bg-background/95
-                            hover:bg-surface-secondary focus:outline-none transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-primary bg-background/95 hover:bg-surface-secondary focus:outline-none transition-colors"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                             aria-label={
@@ -291,23 +254,20 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* =========================================
-            Mobile Menu
-        ========================================== */}
 
+                {/* Mobile Menu */}
                 <div
                     className={`absolute top-16 left-0 w-full bg-background shadow-md md:hidden transition-all duration-200 ease-in-out ${isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}`}
                     id="mobile-menu"
                 >
                     <div className="border-t border-border px-4 py-4 flex flex-col gap-4">
-                        {/* Theme Toggle */}
 
+                        {/* Theme Toggle */}
                         <div className="flex justify-center py-2">
                             <ThemeToggler />
                         </div>
 
                         {/* Navigation Links */}
-
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
@@ -320,7 +280,6 @@ const Navbar = () => {
                         ))}
 
                         {/* Dashboard */}
-
                         {!isPending && user && (
                             <Link
                                 href="/dashboard"
@@ -331,10 +290,8 @@ const Navbar = () => {
                             </Link>
                         )}
 
-                        {/* =================================
-                Mobile Login
-            ================================== */}
 
+                        {/* Mobile Login */}
                         {!isPending && !user && (
                             <div className="flex items-center gap-3">
                                 <Link
@@ -355,10 +312,8 @@ const Navbar = () => {
                             </div>
                         )}
 
-                        {/* =================================
-                Mobile Logout
-            ================================== */}
 
+                        {/* Mobile Logout */}
                         {!isPending && user && (
                             <Button
                                 onClick={() => {
