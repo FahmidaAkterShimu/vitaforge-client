@@ -98,7 +98,7 @@ export default function AdminSidebar() {
                 <Menu size={20} />
             </Button>
 
-            {/* Overlay */}
+            {/* Mobile Overlay */}
             {open && (
                 <div
                     onClick={() => setOpen(false)}

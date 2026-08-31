@@ -34,25 +34,21 @@ const UserDashboardPage = () => {
 
     return (
         <div className="space-y-7">
-            {/* =========================
-                Header
-            ========================== */}
+            {/* Header */}
             <motion.section
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
             >
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+             
+                    {/* heading */}
                     <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5">
-                            <span className="size-1.5 rounded-full bg-primary" />
+                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                            Overview
+                        </p>
 
-                            <span className="font-body text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
-                                User Dashboard
-                            </span>
-                        </div>
-
-                        <h1 className="mt-4 font-display text-4xl font-bold uppercase leading-none text-foreground sm:text-5xl">
+                        <h1 className="mt-2 font-display text-4xl font-bold uppercase leading-none text-foreground sm:text-5xl">
                             Welcome Back
                         </h1>
 
@@ -73,10 +69,8 @@ const UserDashboardPage = () => {
                 </div>
             </motion.section>
 
-            {/* =========================
-                Stats
-            ========================== */}
-            <section className="grid gap-4 sm:grid-cols-2">
+            {/* Stats */}
+            <section className="grid w-full gap-4 sm:grid-cols-2 xl:w-2/3">
                 <UserDashboardStatCard
                     title="Booked Classes"
                     value={dashboardData.bookedClasses}
@@ -92,10 +86,8 @@ const UserDashboardPage = () => {
                 />
             </section>
 
-            {/* =========================
-                Main Grid
-            ========================== */}
-            <section className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+            {/* Main Grid */}
+            <section className="grid gap-5 xl:grid-cols-2">
                 <UserProfileCard user={user} />
 
                 <TrainerApplicationCard
@@ -104,9 +96,8 @@ const UserDashboardPage = () => {
                 />
             </section>
 
-            {/* =========================
-                Quick Actions
-            ========================== */}
+
+            {/* Quick Actions */}
             <section>
                 <div className="mb-4">
                     <p className="font-body text-[10px] font-bold uppercase tracking-[0.18em] text-primary">

@@ -1,7 +1,7 @@
 import AdminSidebar from "@/components/dashboard/admin/AdminSidebar";
 import AdminHeader from "@/components/dashboard/admin/AdminHeader";
 
-export default function AdminDashboardLayout({ children }) {
+const AdminDashboardLayout = ({ children }) => {
     return (
         <div className="min-h-screen bg-background text-foreground">
 
@@ -9,8 +9,9 @@ export default function AdminDashboardLayout({ children }) {
 
             <AdminHeader />
 
-            <main className="pt-20 lg:ml-72">
-                <div className="min-h-[calc(100vh-5rem)] p-4 sm:p-6 lg:p-8">
+            {/* Main Content */}
+            <main className="min-h-screen lg:ml-72">
+                <div className="mx-auto w-full max-w-[1600px] px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
                     {children}
                 </div>
             </main>
@@ -18,3 +19,5 @@ export default function AdminDashboardLayout({ children }) {
         </div>
     );
 }
+
+export default AdminDashboardLayout;
