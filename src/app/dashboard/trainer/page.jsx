@@ -48,7 +48,7 @@ const TrainerDashboardPage = () => {
                         </h1>
 
                         <p className="mt-3 max-w-2xl font-body text-sm leading-6 text-muted">
-                            Manage your classes and track your students from one place.
+                            Manage your classes, your posts and track your students from one place.
                         </p>
                     </div>
 
