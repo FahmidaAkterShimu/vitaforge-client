@@ -124,6 +124,7 @@ const RegisterPage = () => {
                     password,
                     image: imageUrl,
                     role: "user",
+                    status: "active",
                     callbackURL: "/login",
                 });
 
