@@ -6,10 +6,9 @@ import { useState } from "react";
 import {
     LayoutDashboard,
     Dumbbell,
-    CalendarDays,
-    CalendarCheck2,
-    WalletCards,
-    UserRound,
+    Plus,
+    FilePlus2,
+    FileText,
     LogOut,
     Menu,
     X,
@@ -26,29 +25,24 @@ const navigation = [
         icon: LayoutDashboard,
     },
     {
+        label: "Add Class",
+        href: "/dashboard/trainer/add-class",
+        icon: Plus,
+    },
+    {
         label: "My Classes",
-        href: "/dashboard/trainer/classes",
+        href: "/dashboard/trainer/my-classes",
         icon: Dumbbell,
     },
     {
-        label: "Schedule",
-        href: "/dashboard/trainer/schedule",
-        icon: CalendarDays,
+        label: "Add Forum Post",
+        href: "/dashboard/trainer/add-post",
+        icon: FilePlus2,
     },
     {
-        label: "Bookings",
-        href: "/dashboard/trainer/bookings",
-        icon: CalendarCheck2,
-    },
-    {
-        label: "Earnings",
-        href: "/dashboard/trainer/earnings",
-        icon: WalletCards,
-    },
-    {
-        label: "Profile",
-        href: "/dashboard/trainer/profile",
-        icon: UserRound,
+        label: "My Forum Posts",
+        href: "/dashboard/trainer/my-posts",
+        icon: FileText,
     },
 ];
 

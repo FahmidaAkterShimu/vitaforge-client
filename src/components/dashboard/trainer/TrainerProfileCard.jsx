@@ -1,9 +1,5 @@
 import { Avatar } from "@heroui/react";
-import {
-    Mail,
-    ShieldCheck,
-    UserRound,
-} from "lucide-react";
+import { Mail, ShieldCheck, UserRound } from "lucide-react";
 
 const TrainerProfileCard = ({ user }) => {
     const name = user?.name || "VitaForge Trainer";
@@ -12,10 +8,8 @@ const TrainerProfileCard = ({ user }) => {
 
     return (
         <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm sm:p-6">
-
             {/* Header */}
             <div className="flex items-center justify-between gap-4">
-
                 <div>
                     <p className="font-body text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
                         Profile
@@ -29,29 +23,14 @@ const TrainerProfileCard = ({ user }) => {
                 <div className="hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-wider text-primary sm:block">
                     Trainer
                 </div>
-
             </div>
 
             {/* Profile */}
             <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
-
                 <Avatar
                     size="lg"
                     variant="soft"
-                    className="
-                        h-20 w-20 rounded-full
-                        border-2 border-orange-500/30
-                        bg-orange-500/10
-                        text-orange-600
-                        shadow-sm
-                        transition-all duration-200
-                        hover:border-orange-500/60
-                        hover:bg-orange-500/20
-                        hover:shadow-md
-                        dark:border-orange-400/30
-                        dark:bg-orange-500/15
-                        dark:text-orange-400
-                    "
+                    className="h-20 w-20 rounded-full border-2 border-orange-500/30 bg-orange-500/10 text-orange-600 shadow-sm transition-all duration-200 hover:border-orange-500/60 hover:bg-orange-500/20 hover:shadow-md dark:border-orange-400/30 dark:bg-orange-500/15 dark:text-orange-400"
                 >
                     <Avatar.Image
                         referrerPolicy="no-referrer"
@@ -65,7 +44,6 @@ const TrainerProfileCard = ({ user }) => {
                 </Avatar>
 
                 <div className="space-y-3">
-
                     <div className="flex items-center gap-2">
                         <UserRound className="size-4 text-primary" />
 
@@ -89,11 +67,8 @@ const TrainerProfileCard = ({ user }) => {
                             Trainer
                         </span>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 };

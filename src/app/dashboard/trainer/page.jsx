@@ -2,26 +2,20 @@
 
 import Link from "next/link";
 import {
+    Dumbbell,
     ArrowRight,
     CalendarCheck2,
-    CalendarDays,
-    DollarSign,
-    BookOpen
 } from "lucide-react"
 
 import { motion } from "motion/react";
-import TrainerDashboardStatCard from "@/components/dashboard/trainer/TrainerDashboardStatCard";
 import { authClient } from "@/lib/auth-client";
+
+import TrainerDashboardStatCard from "@/components/dashboard/trainer/TrainerDashboardStatCard";
 import TrainerProfileCard from "@/components/dashboard/trainer/TrainerProfileCard";
 
 const dashboardData = {
     totalClasses: 0,
-    upcomingClasses: 0,
-    totalBookings: 0,
-    totalEarnings: 0,
-
-    upcoming: [],
-    recentBookings: [],
+    totalStudents: 0,
 };
 
 const TrainerDashboardPage = () => {
@@ -54,8 +48,7 @@ const TrainerDashboardPage = () => {
                         </h1>
 
                         <p className="mt-3 max-w-2xl font-body text-sm leading-6 text-muted">
-                            Manage your classes, schedules, bookings, and
-                            earnings from one place.
+                            Manage your classes and track your students from one place.
                         </p>
                     </div>
 
@@ -70,35 +63,21 @@ const TrainerDashboardPage = () => {
                 </div>
             </motion.section>
 
-            {/* Stats */}
-            <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {/* Statistics */}
+            <section className="grid gap-4 sm:grid-cols-2 xl:w-2/3">
 
                 <TrainerDashboardStatCard
                     title="Total Classes"
                     value={dashboardData.totalClasses}
                     description="Classes you've created"
-                    icon={BookOpen}
+                    icon={Dumbbell}
                 />
 
                 <TrainerDashboardStatCard
-                    title="Upcoming"
-                    value={dashboardData.upcomingClasses}
-                    description="Classes scheduled ahead"
-                    icon={CalendarDays}
-                />
-
-                <TrainerDashboardStatCard
-                    title="Bookings"
-                    value={dashboardData.totalBookings}
-                    description="Total member bookings"
+                    title="Total Students"
+                    value={dashboardData.totalStudents}
+                    description="Students enrolled in your classes"
                     icon={CalendarCheck2}
-                />
-
-                <TrainerDashboardStatCard
-                    title="Earnings"
-                    value={`$${dashboardData.totalEarnings}`}
-                    description="Total earnings"
-                    icon={DollarSign}
                 />
 
             </section>
@@ -125,10 +104,9 @@ function DashboardSkeleton() {
                 <div className="h-4 w-full max-w-xl animate-pulse rounded-lg bg-surface-secondary" />
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2">
                 <div className="h-32 animate-pulse rounded-2xl bg-surface-secondary" />
                 <div className="h-32 animate-pulse rounded-2xl bg-surface-secondary" />
-                <div className="h-32 animate-pulse rounded-2xl bg-surface-secondary" /><div className="h-32 animate-pulse rounded-2xl bg-surface-secondary" />
             </div>
 
             <div className="grid gap-5 xl:grid-cols-2">
