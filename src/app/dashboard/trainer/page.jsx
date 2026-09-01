@@ -12,6 +12,7 @@ import {
 import { motion } from "motion/react";
 import TrainerDashboardStatCard from "@/components/dashboard/trainer/TrainerDashboardStatCard";
 import { authClient } from "@/lib/auth-client";
+import TrainerProfileCard from "@/components/dashboard/trainer/TrainerProfileCard";
 
 const dashboardData = {
     totalClasses: 0,
@@ -99,6 +100,13 @@ const TrainerDashboardPage = () => {
                     description="Total earnings"
                     icon={DollarSign}
                 />
+
+            </section>
+
+            {/* Main Content */}
+            <section className="grid gap-5 xl:grid-cols-2">
+
+                <TrainerProfileCard user={user} />
 
             </section>
 
