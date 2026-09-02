@@ -110,13 +110,9 @@ const AddForumPostForm = ({ trainer }) => {
 
             const result = await createForumPost(postData);
 
-            if (!result.success) {
-                throw new Error(
-                    result.message || "Failed to create forum post"
-                );
+            if (result.insertedId) {
+                toast.success("Forum post published successfully!");
             }
-
-            toast.success("Forum post published successfully!");
 
             setFormData(initialFormData);
             setImageFile(null);
