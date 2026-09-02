@@ -90,3 +90,19 @@ export const deleteClass = async (classId) => {
 
     return response.json();
 };
+
+// Get class
+export const getTrainerClasses = async (trainerId) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/classes?trainerId=${trainerId}`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to load trainer classes");
+    }
+
+    return response.json();
+};

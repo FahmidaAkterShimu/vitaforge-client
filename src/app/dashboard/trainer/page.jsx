@@ -1,31 +1,49 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
     Dumbbell,
     ArrowRight,
     CalendarCheck2,
-} from "lucide-react"
+} from "lucide-react";
 
 import { motion } from "motion/react";
 import { authClient } from "@/lib/auth-client";
 
 import TrainerDashboardStatCard from "@/components/dashboard/trainer/TrainerDashboardStatCard";
 import TrainerProfileCard from "@/components/dashboard/trainer/TrainerProfileCard";
-
-const dashboardData = {
-    totalClasses: 0,
-    totalStudents: 0,
-};
+import { getTrainerClasses } from "@/lib/actions/classes";
 
 const TrainerDashboardPage = () => {
     const { data: session, isPending } = authClient.useSession();
 
-    if (isPending) {
-        return <DashboardSkeleton />;
-    }
+    const [totalClasses, setTotalClasses] = useState(0);
+    const [classesLoading, setClassesLoading] = useState(true);
 
     const user = session?.user;
+
+    useEffect(() => {
+        if (!user?.id) return;
+
+        const loadClasses = async () => {
+            try {
+                const classes = await getTrainerClasses(user.id);
+
+                setTotalClasses(classes.length);
+            } catch (error) {
+                console.error("Failed to load trainer classes:", error);
+            } finally {
+                setClassesLoading(false);
+            }
+        };
+
+        loadClasses();
+    }, [user?.id]);
+
+    if (isPending || classesLoading) {
+        return <DashboardSkeleton />;
+    }
 
     return (
         <div className="space-y-7">
@@ -68,14 +86,14 @@ const TrainerDashboardPage = () => {
 
                 <TrainerDashboardStatCard
                     title="Total Classes"
-                    value={dashboardData.totalClasses}
+                    value={totalClasses}
                     description="Classes you've created"
                     icon={Dumbbell}
                 />
 
                 <TrainerDashboardStatCard
                     title="Total Students"
-                    value={dashboardData.totalStudents}
+                    value={0}
                     description="Students enrolled in your classes"
                     icon={CalendarCheck2}
                 />
@@ -110,7 +128,6 @@ function DashboardSkeleton() {
             </div>
 
             <div className="grid gap-5 xl:grid-cols-2">
-                <div className="h-64 animate-pulse rounded-2xl bg-surface-secondary" />
                 <div className="h-64 animate-pulse rounded-2xl bg-surface-secondary" />
             </div>
         </div>
