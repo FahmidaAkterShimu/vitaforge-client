@@ -186,15 +186,11 @@ const AddClassForm = () => {
 
             const response = await createClass(classData);
 
-            if (!response?.success) {
-                throw new Error(
-                    response?.message || "Failed to create class."
+            if (response.insertedId) {
+                toast.success(
+                    "Class created successfully and sent for admin approval."
                 );
             }
-
-            toast.success(
-                "Class created successfully and sent for admin approval."
-            );
 
             setFormData(initialFormData);
             setImageFile(null);
