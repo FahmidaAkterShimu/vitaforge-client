@@ -3,6 +3,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+// Create new class
 export const createClass = async (classData) => {
     try {
         const session = await auth.api.getSession({
@@ -60,4 +61,32 @@ export const createClass = async (classData) => {
             message: "Something went wrong while creating the class.",
         };
     }
+};
+
+// Update class
+export const updateClass = async (classId, updatedClass) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/classes/${classId}`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedClass),
+        }
+    );
+
+    return response.json();
+};
+
+// Delete class
+export const deleteClass = async (classId) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/classes/${classId}`,
+        {
+            method: "DELETE",
+        }
+    );
+
+    return response.json();
 };

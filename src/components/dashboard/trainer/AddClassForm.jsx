@@ -181,6 +181,7 @@ const AddClassForm = () => {
                 price: Number(formData.price),
                 description: formData.description.trim(),
                 status: "Pending",
+                studentsCount: 0,
             };
 
             const response = await createClass(classData);
@@ -330,7 +331,7 @@ const AddClassForm = () => {
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full rounded-xl border border-border bg-surface-secondary px-4 py-3 font-body text-sm text-foreground outline-none transition-colors focus:border-primary"
+                            className="w-full rounded-xl border border-border bg-surface-secondary px-4 py-3 font-body text-sm text-foreground outline-none transition-colors focus:border-primary cursor-pointer"
                         >
                             <option value="">
                                 Select category
@@ -340,6 +341,7 @@ const AddClassForm = () => {
                                 <option
                                     key={category}
                                     value={category}
+                                    className="cursor-pointer"
                                 >
                                     {category}
                                 </option>
@@ -360,7 +362,7 @@ const AddClassForm = () => {
                             name="difficulty"
                             value={formData.difficulty}
                             onChange={handleChange}
-                            className="w-full rounded-xl border border-border bg-surface-secondary px-4 py-3 font-body text-sm text-foreground outline-none transition-colors focus:border-primary"
+                            className="w-full rounded-xl border border-border bg-surface-secondary px-4 py-3 font-body text-sm text-foreground outline-none transition-colors focus:border-primary cursor-pointer"
                         >
                             <option value="">
                                 Select difficulty
@@ -396,7 +398,7 @@ const AddClassForm = () => {
                                 id="duration"
                                 name="duration"
                                 type="number"
-                                min="1"
+                                min="0"
                                 value={formData.duration}
                                 onChange={handleChange}
                                 placeholder="60"
