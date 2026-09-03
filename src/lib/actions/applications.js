@@ -1,12 +1,10 @@
 'use server'
-import { headers } from "next/headers";
-import { auth } from "../auth";
+import { serverMutation } from "../core/server";
+import getUserSession from "../core/session";
 
+// Create application
 export const createApplication = async (newApplication) => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-    const user = session.user;
+    const user = await getUserSession();
 
     const applicationData = {
         userId: user.id,
@@ -17,15 +15,5 @@ export const createApplication = async (newApplication) => {
         specialty: newApplication.specialty,
     };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/trainer-applications`,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(applicationData),
-        });
-
-    return res.json();
+    return serverMutation('/api/trainer-applications', applicationData);
 }

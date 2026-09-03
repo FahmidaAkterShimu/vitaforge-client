@@ -1,19 +1,14 @@
 import {
-    BookOpen,
-    Clock3,
+    BookOpen
 } from "lucide-react";
 
 import { getTrainerClasses } from "@/lib/api/classes";
 import TrainerClassTable from "@/components/dashboard/trainer/TrainerClassTable";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+import getUserSession from "@/lib/core/session";
 
 const MyClassesPage = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    const trainerId = session?.user.id;
+    const user = await getUserSession();
+    const trainerId = user.id;
 
     let classes = [];
     let errorMessage = "";

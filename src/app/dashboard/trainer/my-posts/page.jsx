@@ -1,15 +1,12 @@
 import MyForumPosts from "@/components/dashboard/trainer/MyForumPosts";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import getUserSession from "@/lib/core/session";
 
 const MyForumPostsPage = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
+    const user = await getUserSession();
 
     return (
         <MyForumPosts
-            trainerId={session.user.id}
+            trainerId={user.id}
         />
     );
 };

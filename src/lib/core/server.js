@@ -14,3 +14,12 @@ export const serverMutation = async (path, data) => {
 
     return response.json();
 };
+
+export const serverFetch = async (path) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`);
+
+    // handle 401, 403, 404
+
+    return response.json();
+};

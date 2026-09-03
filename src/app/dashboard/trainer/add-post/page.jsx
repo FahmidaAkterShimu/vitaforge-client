@@ -1,16 +1,13 @@
 import AddForumPostForm from "@/components/dashboard/trainer/AddForumPostForm";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import getUserSession from "@/lib/core/session";
 
 const AddForumPostPage = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
+    const user = await getUserSession();
 
     const trainer = {
-        id: session.user.id,
-        name: session.user.name,
-        email: session.user.email,
+        id: user.id,
+        name: user.name,
+        email: user.email,
     };
 
     return (
