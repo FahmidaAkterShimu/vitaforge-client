@@ -1,11 +1,11 @@
 "use server";
 
-// Triner classes
-export const getTrainerClasses = async (trainerId, status="Pending") => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/classes?trainerId=${trainerId}&status=${status}`);
+import { serverFetch } from "../core/server";
 
-    return response.json();
-}
+// Triner classes
+export const getTrainerClasses = async (trainerId, status = "Pending") => {
+    return serverFetch(`/api/classes?trainerId=${trainerId}&status=${status}`)
+};
 
 // Enrolled students
 export const getClassStudents = async (classId) => {
@@ -14,4 +14,9 @@ export const getClassStudents = async (classId) => {
     );
 
     return response.json();
+};
+
+// Get all classes for users 
+export const getAllClasses = async (status = "Approved") => {
+    return serverFetch(`/api/classes?status=${status}`);
 };

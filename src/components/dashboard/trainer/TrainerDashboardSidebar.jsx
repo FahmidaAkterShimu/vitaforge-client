@@ -119,7 +119,7 @@ const TrainerDashboardSidebar = () => {
                             <Avatar.Image
                                 referrerPolicy="no-referrer"
                                 alt={user?.name || "Trainer"}
-                                src={user?.image || ""}
+                                src={user?.image}
                             />
 
                             <Avatar.Fallback className="font-bold tracking-wide text-orange-600 dark:text-orange-400">

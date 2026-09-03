@@ -117,6 +117,7 @@ const RegisterPage = () => {
             console.log("PASSWORD:", password);
             console.log("PASSWORD LENGTH:", password.length);
 
+
             const { data: result, error: signupError } =
                 await authClient.signUp.email({
                     name,
@@ -125,10 +126,7 @@ const RegisterPage = () => {
                     image: imageUrl,
                     role: "user",
                     status: "active",
-                    callbackURL: "/login",
                 });
-
-            console.log({ result, signupError });
 
             if (signupError) {
                 setError(
@@ -144,8 +142,11 @@ const RegisterPage = () => {
             }
 
             if (result) {
+                // Remove the session created after signup
+                await authClient.signOut();
+
                 toast.success(
-                    "Account created successfully! Please login"
+                    "Account created successfully! Please login."
                 );
 
                 setTimeout(() => {

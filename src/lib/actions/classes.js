@@ -46,8 +46,3 @@ export const deleteClass = async (classId) => {
 
     return response.json();
 };
-
-// Get class
-export const getTrainerClasses = async (trainerId) => {
-    return serverFetch(`/api/classes?trainerId=${trainerId}`)
-};
