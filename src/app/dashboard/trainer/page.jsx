@@ -13,7 +13,7 @@ import { authClient } from "@/lib/auth-client";
 
 import TrainerDashboardStatCard from "@/components/dashboard/trainer/TrainerDashboardStatCard";
 import TrainerProfileCard from "@/components/dashboard/trainer/TrainerProfileCard";
-import { getTrainerClasses } from "@/lib/actions/classes";
+import { getTrainerClasses } from "@/lib/api/classes";
 
 const TrainerDashboardPage = () => {
     const { data: session, isPending } = authClient.useSession();

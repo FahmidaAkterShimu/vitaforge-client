@@ -137,7 +137,7 @@ const ClassDetailsPage = async ({ params }) => {
                                         className="text-primary"
                                     />
                                     <p className="text-xs text-muted">
-                                        Total bookings
+                                        Bookings
                                     </p>
                                 </div>
 
