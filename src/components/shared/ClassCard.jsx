@@ -12,6 +12,7 @@ import {
     Chip,
     Button,
 } from "@heroui/react";
+import Link from "next/link";
 
 const categoryIcons = {
     Yoga: "🧘",
@@ -129,15 +130,11 @@ const ClassCard = ({ classData, onMore }) => {
                     </p>
                 </div>
 
-                <Button
-                    size="sm"
-                    variant="ghost"
-                    onPress={() => onMore?.(classData)}
-                    className="font-medium text-primary"
-                >
-                    View Details
-                    <ArrowRight size={16} />
-                </Button>
+                <Link
+                    href={`/classes/${classData._id}`}
+                    className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10" >
+                    View Details <ArrowRight size={16} />
+                </Link>
             </Card.Footer>
         </Card>
     );

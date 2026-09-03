@@ -20,3 +20,8 @@ export const getClassStudents = async (classId) => {
 export const getAllClasses = async (status = "Approved") => {
     return serverFetch(`/api/classes?status=${status}`);
 };
+
+// Get single approved class 
+export const getClassById = async (classId) => {
+    return serverFetch(`/api/classes/${classId}`);
+};
