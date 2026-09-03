@@ -1,12 +1,11 @@
 import AdminProfileCard from "@/components/dashboard/admin/AdminProfileCard";
-import { auth } from "@/lib/auth";
+import getUserSession from "@/lib/core/session";
 import {
     Users,
     CalendarCheck2,
     ArrowUpRight,
     BookOpen,
 } from "lucide-react";
-import { headers } from "next/headers";
 
 const stats = [
     {
@@ -27,10 +26,7 @@ const stats = [
 ];
 
 const AdminDashboardPage = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-    const user = session.user;
+    const user = await getUserSession();
 
     return (
         <div className="space-y-8">
