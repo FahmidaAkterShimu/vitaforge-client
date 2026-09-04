@@ -181,7 +181,7 @@ const AddClassForm = () => {
                 price: Number(formData.price),
                 description: formData.description.trim(),
                 status: "Pending",
-                studentsCount: 0,
+                bookingCount: 0,
             };
 
             const response = await createClass(classData);

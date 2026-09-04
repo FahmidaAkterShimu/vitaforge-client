@@ -17,8 +17,19 @@ export const getClassStudents = async (classId) => {
 };
 
 // Get all classes for users 
-export const getAllClasses = async (status = "Approved") => {
-    return serverFetch(`/api/classes?status=${status}`);
+export const getAllClasses = async ({
+    status = "Approved",
+    limit,
+} = {}) => {
+    const params = new URLSearchParams();
+
+    params.set("status", status);
+
+    if (limit) {
+        params.set("limit", limit);
+    }
+
+    return serverFetch(`/api/classes?${params.toString()}`);
 };
 
 // Get single approved class 

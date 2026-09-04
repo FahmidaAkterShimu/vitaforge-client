@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import {
-    CalendarDays,
     Clock3,
     Users,
     ArrowRight,
@@ -10,7 +9,6 @@ import {
 import {
     Card,
     Chip,
-    Button,
 } from "@heroui/react";
 import Link from "next/link";
 
@@ -30,9 +28,7 @@ const ClassCard = ({ classData, onMore }) => {
         category,
         difficulty,
         duration,
-        schedule,
         price,
-        description,
         studentsCount,
         trainerName,
     } = classData;
@@ -111,11 +107,6 @@ const ClassCard = ({ classData, onMore }) => {
                         </p>
                     </div>
                 </div>
-
-                {/* Description */}
-                <p className="line-clamp-3 text-sm leading-6 text-muted">
-                    {description}
-                </p>
             </Card.Content>
 
             {/* Footer */}
