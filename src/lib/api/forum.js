@@ -1,10 +1,36 @@
 "use server";
 
-// Trianer Forum Posts
-export const getTrainerForumPosts = async (trainerId) => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/forum-posts?trainerId=${trainerId}`
-    );
+import { serverFetch } from "../core/server";
 
-    return response.json();
+// Trainer's own forum posts
+export const getTrainerForumPosts = async (trainerId) => {
+    return serverFetch(`/api/forum-posts?trainerId=${trainerId}`);
+};
+
+// Latest forum posts for home page
+export const getLatestForumPosts = async (limit = 3) => {
+    return serverFetch(`/api/forum-posts?limit=${limit}`);
+};
+
+// Single forum post
+export const getForumPostById = async (postId) => {
+    return serverFetch(`/api/forum-posts/${postId}`);
+};
+
+// Get votes
+export const getForumVotes = async (postId) => {
+    return serverFetch(`/api/forum-posts/${postId}/votes`);
+};
+
+// Vote
+export const voteForumPost = async (postId, voteData) => {
+    return serverMutation(
+        `/api/forum-posts/${postId}/vote`,
+        voteData
+    );
+};
+
+// Get comments
+export const getForumComments = async (postId) => {
+    return serverFetch(`/api/forum-posts/${postId}/comments`);
 };
