@@ -12,6 +12,11 @@ export const getLatestForumPosts = async (limit = 3) => {
     return serverFetch(`/api/forum-posts?limit=${limit}`);
 };
 
+// All forum posts for community page
+export const getAllForumPosts = async () => {
+    return serverFetch("/api/forum-posts");
+};
+
 // Single forum post
 export const getForumPostById = async (postId) => {
     return serverFetch(`/api/forum-posts/${postId}`);
