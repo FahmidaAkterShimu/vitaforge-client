@@ -9,17 +9,19 @@ const DashboardPage = async () => {
         redirect("/login");
     }
 
-    const role = user.role;
+    switch (user.role) {
+        case "admin":
+            redirect("/dashboard/admin");
 
-    if (role === "admin") {
-        redirect("/dashboard/admin");
+        case "trainer":
+            redirect("/dashboard/trainer");
+
+        case "user":
+            redirect("/dashboard/user");
+
+        default:
+            redirect("/unauthorized");
     }
-
-    if (role === "trainer") {
-        redirect("/dashboard/trainer");
-    }
-
-    redirect("/dashboard/user");
 };
 
 export default DashboardPage

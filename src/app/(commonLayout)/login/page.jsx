@@ -40,118 +40,130 @@ const LoginPage = () => {
         role: "",
     });
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setError("");
-
-        const { email, password, role } = formData;
-
-        console.log("Form Data:", formData);
+        const email = formData.email;
+        const password = formData.password;
+        const selectedRole = formData.role;
 
         // Role validation
-        if (!role) {
+        if (!selectedRole) {
             setError("Please select a role to continue.");
+            toast.error("Please select a role to continue.");
             return;
         }
 
-        // Email & password validation
-        if (!email.trim() || !password) {
+        // Email/password validation
+        if (!email || !password) {
             setError("Please enter your email and password.");
+            toast.error("Please enter your email and password.");
             return;
         }
+
+        setLoading(true);
+        setError("");
 
         try {
-            setLoading(true);
-
-            // Login with email and password only
-            const { data, error: loginError } =
+            // Sign in
+            const { error: signInError } =
                 await authClient.signIn.email({
-                    email: email.trim(),
+                    email,
                     password,
                 });
 
-            console.log("Login response:", {
-                data,
-                loginError,
-            });
+            if (signInError) {
+                const message =
+                    signInError.message || "Login failed.";
 
-            if (loginError) {
-                setError(
-                    loginError.message ||
-                    "Invalid email or password. Please try again."
-                );
+                setError(message);
+                toast.error(message);
+                return;
+            }
 
-                toast.error(
-                    loginError.message ||
-                    "Invalid email or password."
-                );
+            // Get current session
+            const {
+                data: sessionData,
+                error: sessionError,
+            } = await authClient.getSession();
+
+            if (sessionError || !sessionData?.user) {
+                setError("Unable to get user session.");
+                toast.error("Unable to get user session.");
+
+                await authClient.signOut();
 
                 return;
             }
 
-            if (data) {
-                // Get the authenticated user's session
-                const {
-                    data: sessionData,
-                    error: sessionError,
-                } = await authClient.getSession();
+            // Actual role from database/session
+            const actualRole = sessionData.user.role;
 
-                if (sessionError || !sessionData?.user) {
-                    setError("Unable to get user session.");
-                    toast.error("Unable to get user session.");
-                    return;
-                }
+            if (!actualRole) {
+                setError("User role not found.");
+                toast.error("User role not found.");
 
-                const userRole = sessionData.user.role;
+                await authClient.signOut();
 
-                // Check selected role against database/session role
-                if (userRole !== role) {
-                    // Logout because the selected role is incorrect
-                    await authClient.signOut();
-
-                    const roleName =
-                        userRole === "admin"
-                            ? "Admin"
-                            : userRole === "trainer"
-                                ? "Trainer"
-                                : "User";
-
-                    setError("The selected role is incorrect.");
-
-                    toast.error("Please select the correct role and try again.");
-
-                    return;
-                }
-
-                // Correct role
-                toast.success("Login successful!");
-
-                router.push("/");
-                router.refresh();
+                return;
             }
-        } catch (err) {
-            console.error("Login error:", err);
 
-            setError(
-                err?.message ||
-                "Something went wrong. Please try again."
-            );
+            // Selected role vs actual role
+            if (selectedRole !== actualRole) {
+                const message = `You cannot login as ${selectedRole}. Your account role is ${actualRole}.`;
 
-            toast.error(
-                err?.message ||
-                "Something went wrong. Please try again."
-            );
+                setError(message);
+                toast.error(message);
+
+                await authClient.signOut();
+
+                return;
+            }
+
+            toast.success("Login successful!");
+
+            // Role based redirect
+            switch (actualRole) {
+                case "admin":
+                    router.push("/dashboard/admin");
+                    break;
+
+                case "trainer":
+                    router.push("/dashboard/trainer");
+                    break;
+
+                case "user":
+                    router.push("/dashboard/user");
+                    break;
+
+                default:
+                    setError("Invalid user role.");
+                    toast.error("Invalid user role.");
+
+                    await authClient.signOut();
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+
+            setError("Something went wrong. Please try again.");
+            toast.error("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
     };
 
-
     const handleGoogleLogin = async () => {
+        const selectedRole = formData.role;
+
+        if (!selectedRole) {
+            setError("Please select a role to continue.");
+            toast.error("Please select a role to continue.");
+            return;
+        }
+
         try {
             setGoogleLoading(true);
+            setError("");
 
             const { error: googleError } =
                 await authClient.signIn.social({
@@ -160,19 +172,23 @@ const LoginPage = () => {
                 });
 
             if (googleError) {
-                toast.error(
+                const message =
                     googleError.message ||
-                    "Google login failed."
-                );
+                    "Google login failed.";
 
+                setError(message);
+                toast.error(message);
                 setGoogleLoading(false);
             }
         } catch (err) {
-            toast.error(
-                err?.message ||
-                "Google login failed. Please try again."
-            );
+            console.error("Google login error:", err);
 
+            const message =
+                err?.message ||
+                "Google login failed. Please try again.";
+
+            setError(message);
+            toast.error(message);
             setGoogleLoading(false);
         }
     };
@@ -185,6 +201,7 @@ const LoginPage = () => {
 
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+
                         {/* Left Content */}
                         <motion.div
                             initial={{
@@ -281,10 +298,9 @@ const LoginPage = () => {
 
                             {/* Form */}
                             <Form
-                                onSubmit={handleSubmit}
                                 className="space-y-5"
+                                onSubmit={handleSubmit}
                             >
-
                                 {/* Role */}
                                 <div>
                                     <Label className="mb-2 block font-body text-sm font-medium text-foreground">
@@ -293,24 +309,39 @@ const LoginPage = () => {
 
                                     <div className="grid grid-cols-3 gap-3">
                                         {[
-                                            { value: "admin", label: "Admin" },
-                                            { value: "trainer", label: "Trainer" },
-                                            { value: "user", label: "User" },
+                                            {
+                                                value: "admin",
+                                                label: "Admin",
+                                            },
+                                            {
+                                                value: "trainer",
+                                                label: "Trainer",
+                                            },
+                                            {
+                                                value: "user",
+                                                label: "User",
+                                            },
                                         ].map((role) => (
                                             <Button
                                                 type="button"
                                                 key={role.value}
                                                 onPress={() => {
-                                                    console.log("Selected role:", role.value);
-
                                                     setFormData((prev) => ({
                                                         ...prev,
                                                         role: role.value,
                                                     }));
+
+                                                    if (
+                                                        error ===
+                                                        "Please select a role to continue."
+                                                    ) {
+                                                        setError("");
+                                                    }
                                                 }}
-                                                className={`h-11 rounded-lg border font-body text-sm font-semibold transition-all ${formData.role === role.value
-                                                    ? "border-primary bg-primary text-white"
-                                                    : "border-border bg-surface-secondary text-foreground hover:border-primary/50"
+                                                className={`h-11 rounded-lg border font-body text-sm font-semibold transition-all ${formData.role ===
+                                                        role.value
+                                                        ? "border-primary bg-primary text-white"
+                                                        : "border-border bg-surface-secondary text-foreground hover:border-primary/50"
                                                     }`}
                                             >
                                                 {role.label}
@@ -318,11 +349,13 @@ const LoginPage = () => {
                                         ))}
                                     </div>
 
-                                    {!formData.role && error === "Please select a role to continue." && (
-                                        <p className="mt-2 text-xs text-red-500">
-                                            Please select a role.
-                                        </p>
-                                    )}
+                                    {!formData.role &&
+                                        error ===
+                                        "Please select a role to continue." && (
+                                            <p className="mt-2 text-xs text-red-500">
+                                                Please select a role.
+                                            </p>
+                                        )}
                                 </div>
 
                                 {/* Email */}
@@ -452,7 +485,6 @@ const LoginPage = () => {
                                     ) : (
                                         <>
                                             Login
-
                                             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                                         </>
                                     )}

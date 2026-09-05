@@ -1,12 +1,30 @@
+import { redirect } from "next/navigation";
+
 import AdminSidebar from "@/components/dashboard/admin/AdminSidebar";
 import AdminHeader from "@/components/dashboard/admin/AdminHeader";
+import getUserSession from "@/lib/core/session";
 
-const AdminDashboardLayout = ({ children }) => {
+const AdminDashboardLayout = async ({ children }) => {
+    // Get current session
+    const user = await getUserSession();
+
+    // Not logged in
+    if (!user) {
+        redirect("/login");
+    }
+
+    // Logged in but not admin
+    if (user.role !== "admin") {
+        redirect("/unauthorized");
+    }
+
     return (
         <div className="min-h-screen bg-background text-foreground">
 
+            {/* Admin Sidebar */}
             <AdminSidebar />
 
+            {/* Admin Header */}
             <AdminHeader />
 
             {/* Main Content */}
@@ -18,6 +36,6 @@ const AdminDashboardLayout = ({ children }) => {
 
         </div>
     );
-}
+};
 
 export default AdminDashboardLayout;

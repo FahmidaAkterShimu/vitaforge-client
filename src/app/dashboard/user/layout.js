@@ -2,9 +2,25 @@
 
 import UserDashboardSidebar from "@/components/dashboard/user/UserDashboardSidebar";
 import UserDashboardHeader from "@/components/dashboard/user/UserDashboardHeader";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 
 const UserDashboardLayout = ({ children }) => {
+
+    const { data: session } = authClient.useSession();
+
+    // Not logged in
+    if (!session) {
+        redirect("/login");
+    }
+
+    // Logged in but not normal user
+    if (session.user.role !== "user") {
+        redirect("/unauthorized");
+    }
+
+
 
     return (
         <div className="min-h-screen bg-background text-foreground">

@@ -1,7 +1,22 @@
 import TrainerDashboardHeader from "@/components/dashboard/trainer/TrainerDashboardHeader";
 import TrainerDashboardSidebar from "@/components/dashboard/trainer/TrainerDashboardSidebar";
+import getUserSession from "@/lib/core/session";
+import { redirect } from "next/navigation";
 
-const TrainerDashboardLayout = ({ children }) => {
+const TrainerDashboardLayout = async ({ children }) => {
+    const user = await getUserSession();
+
+    // Not logged in
+    if (!user) {
+        redirect("/login");
+    }
+
+    // Logged in but not trainer
+    if (user.role !== "trainer") {
+        redirect("/unauthorized");
+    }
+
+
     return (
         <div className="min-h-screen bg-background text-foreground">
 
