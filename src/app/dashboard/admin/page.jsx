@@ -1,37 +1,42 @@
 import AdminProfileCard from "@/components/dashboard/admin/AdminProfileCard";
 import getUserSession from "@/lib/core/session";
+import { getAdminStats } from "@/lib/api/admin";
+
 import {
     Users,
     CalendarCheck2,
-    ArrowUpRight,
     BookOpen,
+    UserRoundCheck,
+    Clock3,
 } from "lucide-react";
-
-const stats = [
-    {
-        title: "Total Users",
-        value: "1,248",
-        icon: Users,
-    },
-    {
-        title: "Total Classes",
-        value: "86",
-        icon: BookOpen,
-    },
-    {
-        title: "Booked Classes",
-        value: "3,492",
-        icon: CalendarCheck2,
-    },
-];
 
 const AdminDashboardPage = async () => {
     const user = await getUserSession();
 
+    const response = await getAdminStats();
+
+    const stats = response?.data || {};
+
+    const statCards = [
+        {
+            title: "Total Users",
+            value: stats.totalUsers || 0,
+            icon: Users,
+        },
+        {
+            title: "Total Classes",
+            value: stats.totalClasses || 0,
+            icon: BookOpen,
+        },
+        {
+            title: "Booked Classes",
+            value: stats.totalBookedClasses || 0,
+            icon: CalendarCheck2,
+        },
+    ];
+
     return (
         <div className="space-y-8">
-
-            {/* Heading */}
             <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                     Overview
@@ -42,98 +47,88 @@ const AdminDashboardPage = async () => {
                 </h2>
 
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-                    Monitor users, trainers, classes, bookings and community
-                    activity from one place.
+                    Monitor users, trainers, classes, bookings
+                    and community activity from one place.
                 </p>
             </div>
 
-            {/* Stats */}
-            <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
-                {stats.map((stat) => {
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                {statCards.map((stat) => {
                     const Icon = stat.icon;
 
                     return (
                         <div
                             key={stat.title}
-                            className="group rounded-2xl border border-border bg-surface p-6 transition-all duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+                            className="group rounded-2xl border border-border bg-surface p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
                         >
                             <div className="flex items-start justify-between">
-
                                 <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                                     <Icon size={23} />
                                 </div>
-
-                                <ArrowUpRight
-                                    size={18}
-                                    className="text-muted transition group-hover:text-primary"
-                                />
-
                             </div>
 
                             <p className="mt-7 text-sm text-muted">
                                 {stat.title}
                             </p>
 
-                            <div className="mt-1 flex items-end gap-3">
-                                <h3 className="font-display text-4xl font-bold">
-                                    {stat.value}
-                                </h3>
-                            </div>
-
+                            <h3 className="mt-1 font-display text-4xl font-bold">
+                                {stat.value.toLocaleString()}
+                            </h3>
                         </div>
                     );
                 })}
             </div>
 
-
             <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
-                {/* Profile */}
                 <AdminProfileCard user={user} />
 
-                {/* Activity */}
                 <div className="rounded-2xl border border-border bg-surface p-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
-                                Platform Activity
-                            </p>
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                        Platform Activity
+                    </p>
 
-                            <h3 className="mt-1 font-display text-2xl font-bold uppercase">
-                                Recent Overview
-                            </h3>
-                        </div>
-                    </div>
+                    <h3 className="mt-1 font-display text-2xl font-bold uppercase">
+                        Recent Overview
+                    </h3>
 
                     <div className="mt-6 grid gap-4 sm:grid-cols-3">
-
                         <ActivityItem
+                            icon={UserRoundCheck}
                             label="Pending Trainers"
-                            value="12"
+                            value={stats.pendingApplications || 0}
                         />
 
                         <ActivityItem
+                            icon={Clock3}
                             label="Pending Classes"
-                            value="18"
+                            value={stats.pendingClasses || 0}
                         />
 
                         <ActivityItem
-                            label="New Users"
-                            value="64"
+                            icon={Users}
+                            label="Total Trainers"
+                            value={stats.totalTrainers || 0}
                         />
-
                     </div>
                 </div>
-
             </div>
-
         </div>
     );
-}
+};
 
-function ActivityItem({ label, value }) {
+function ActivityItem({
+    icon: Icon,
+    label,
+    value,
+}) {
     return (
         <div className="rounded-xl bg-surface-secondary p-5">
-            <p className="text-xs text-muted">
+            <Icon
+                size={20}
+                className="text-primary"
+            />
+
+            <p className="mt-4 text-xs text-muted">
                 {label}
             </p>
 
