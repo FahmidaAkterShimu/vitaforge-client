@@ -700,27 +700,3 @@ Before deployment:
 
 ---
 
-## 🔗 Related Repository
-
-### VitaForge Client
-
-```text
-https://github.com/FahmidaAkterShimu/vitaforge-client
-```
-
----
-
-## 👩‍💻 Author
-
-**Fahmida Akter Shimu**
-
-VitaForge — Fitness & Gym Management Platform
-
-```
-
-### ছোট একটা important note
-
-তোমার **actual server route names/structure** যদি এগুলোর থেকে কিছুটা আলাদা হয়, তাহলে README-র API section-টা actual code অনুযায়ী adjust করা ভালো। বিশেষ করে client-এর `.env` এবং server-এর `.env`-তে **তোমার real secret কখনো README/GitHub-এ দেবে না**।
-
-আর তোমার আগের মেসেজে যে **`BETTER_AUTH_SECRET` এবং MongoDB credentials** দিয়েছিলে—সেগুলো যদি real production credentials হয়, GitHub-এ দেওয়ার আগে **rotate/change করে নেওয়া উচিত**।
-```
