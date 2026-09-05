@@ -12,6 +12,11 @@ export const auth = betterAuth({
     client
   }),
 
+  trustedOrigins: [
+    "http://localhost:3000",
+    process.env.BETTER_AUTH_URL,
+  ],
+
   user: {
     additionalFields: {
       role: {
