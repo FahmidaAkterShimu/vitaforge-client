@@ -6,7 +6,7 @@ The client application provides role-based dashboards, fitness class management,
 
 ## 🚀 Live Project
 
-**Frontend:** https://vitaforge-client.vercel.app/
+**Frontend:** https://vitaforge-client.vercel.app
 
 
 ---
