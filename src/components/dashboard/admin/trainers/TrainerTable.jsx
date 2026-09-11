@@ -167,20 +167,41 @@ const TrainerTable = ({ initialTrainers = [], initialSearch = "" }) => {
     return (
         <div className="space-y-8">
             {/* Header */}
-            <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                    Administration
-                </p>
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                        Administration
+                    </p>
 
-                <h1 className="mt-2 font-display text-4xl font-bold uppercase sm:text-5xl">
-                    Manage Trainers
-                </h1>
+                    <h1 className="mt-2 font-display text-4xl font-bold uppercase sm:text-5xl">
+                        Manage Trainers
+                    </h1>
 
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-                    View active trainers and manage
-                    their trainer privileges.
-                </p>
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
+                        View active trainers and manage
+                        their trainer privileges.
+                    </p>
+                </div>
+
+                <Button
+                    variant="flat"
+                    onPress={handleRefresh}
+                    isLoading={refreshing}
+                    startContent={undefined}
+                >
+                    <RefreshCw
+                        size={17}
+                        className={
+                            loading
+                                ? "animate-spin"
+                                : ""
+                        }
+                    />
+                    Refresh
+                </Button>
+
             </div>
+
 
             {/* Search / Actions */}
             <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 sm:flex-row">
@@ -204,7 +225,7 @@ const TrainerTable = ({ initialTrainers = [], initialSearch = "" }) => {
                     />
                 </div>
 
-                <div className="flex gap-2">
+                <div>
                     <Button
                         className="bg-primary"
                         onPress={handleSearch}
@@ -216,19 +237,6 @@ const TrainerTable = ({ initialTrainers = [], initialSearch = "" }) => {
                         }
                     >
                         Search
-                    </Button>
-
-                    <Button
-                        variant="flat"
-                        onPress={handleRefresh}
-                        isLoading={refreshing}
-                        startContent={
-                            !refreshing && (
-                                <RefreshCw size={17} />
-                            )
-                        }
-                    >
-                        Refresh
                     </Button>
                 </div>
             </div>

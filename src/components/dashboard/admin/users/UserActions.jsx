@@ -16,8 +16,12 @@ import {
     updateUserRole,
 } from "@/lib/api/admin";
 
+import MakeAdminModal from "./MakeAdminModal";
+
 const UserActions = ({ user }) => {
     const [loading, setLoading] = useState(false);
+
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
     const handleBlockToggle = async () => {
         try {
@@ -43,13 +47,11 @@ const UserActions = ({ user }) => {
         }
     };
 
-    const handleMakeAdmin = async () => {
-        const confirmed = window.confirm(
-            `Make ${user.name} an admin?`
-        );
+    const handleMakeAdmin = () => {
+        setIsAdminModalOpen(true);
+    };
 
-        if (!confirmed) return;
-
+    const handleConfirmMakeAdmin = async () => {
         try {
             setLoading(true);
 
@@ -61,16 +63,22 @@ const UserActions = ({ user }) => {
             if (!response?.success) {
                 throw new Error(
                     response?.message ||
-                    "Action failed"
+                    "Failed to make user admin"
                 );
             }
 
+            setIsAdminModalOpen(false);
             window.location.reload();
         } catch (error) {
             alert(error.message);
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleCloseAdminModal = () => {
+        if (loading) return;
+        setIsAdminModalOpen(false);
     };
 
     if (user.role === "admin") {
@@ -112,6 +120,14 @@ const UserActions = ({ user }) => {
                     Make Admin
                 </Button>
             )}
+
+            <MakeAdminModal
+                isOpen={isAdminModalOpen}
+                onClose={handleCloseAdminModal}
+                onConfirm={handleConfirmMakeAdmin}
+                userName={user.name}
+                loading={loading}
+            />
         </div>
     );
 };

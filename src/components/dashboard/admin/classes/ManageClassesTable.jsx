@@ -27,6 +27,7 @@ import {
 } from "@/lib/api/admin";
 
 import ClassDetailsModal from "./ClassDetailsModal";
+import DeleteClassModal from "./DeleteClassModal";
 
 const ManageClassesTable = ({
     initialClasses = [],
@@ -39,6 +40,9 @@ const ManageClassesTable = ({
 
     const [selectedClass, setSelectedClass] = useState(null);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+    const [deleteClass, setDeleteClass] = useState(null);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     const [page, setPage] = useState(initialPagination?.page || 1);
     const [pagination, setPagination] = useState(initialPagination);
@@ -132,11 +136,20 @@ const ManageClassesTable = ({
     };
 
     const handleDelete = async (id) => {
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this class?"
+        const selected = classes.find(
+            (item) => item._id === id
         );
 
-        if (!confirmed) return;
+        if (!selected) return;
+
+        setDeleteClass(selected);
+        setIsDeleteOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!deleteClass?._id) return;
+
+        const id = deleteClass._id;
 
         try {
             setActionId(id);
@@ -157,6 +170,9 @@ const ManageClassesTable = ({
                         0
                     ),
                 }));
+
+                setIsDeleteOpen(false);
+                setDeleteClass(null);
             } else {
                 alert(
                     response?.message ||
@@ -164,11 +180,22 @@ const ManageClassesTable = ({
                 );
             }
         } catch (error) {
-            console.error("Delete class error:", error);
+            console.error(
+                "Delete class error:",
+                error
+            );
+
             alert("Something went wrong.");
         } finally {
             setActionId(null);
         }
+    };
+
+    const handleCloseDelete = () => {
+        if (actionId) return;
+
+        setIsDeleteOpen(false);
+        setDeleteClass(null);
     };
 
     const formatDate = (date) => {
@@ -231,17 +258,16 @@ const ManageClassesTable = ({
                     variant="flat"
                     onPress={handleRefresh}
                     isDisabled={loading}
-                    startContent={
-                        <RefreshCw
-                            size={17}
-                            className={
-                                loading
-                                    ? "animate-spin"
-                                    : ""
-                            }
-                        />
-                    }
+                    startContent={undefined}
                 >
+                    <RefreshCw
+                        size={17}
+                        className={
+                            loading
+                                ? "animate-spin"
+                                : ""
+                        }
+                    />
                     Refresh
                 </Button>
             </div>
@@ -301,7 +327,7 @@ const ManageClassesTable = ({
                     </Select>
 
                     <Button
-                        color="primary"
+                        className="bg-primary"
                         onPress={handleSearch}
                         isDisabled={loading}
                         startContent={
@@ -510,7 +536,7 @@ const ManageClassesTable = ({
                                             {/* Price */}
                                             <td className="px-5 py-4">
                                                 <span className="font-semibold">
-                                                    ৳
+                                                    $
                                                     {item.price ??
                                                         0}
                                                 </span>
@@ -691,6 +717,16 @@ const ManageClassesTable = ({
                 classData={selectedClass}
                 isOpen={isDetailsOpen}
                 onClose={handleCloseDetails}
+            />
+            
+            <DeleteClassModal
+                isOpen={isDeleteOpen}
+                onClose={handleCloseDelete}
+                onConfirm={handleConfirmDelete}
+                className={deleteClass?.className}
+                loading={
+                    deleteClass?._id === actionId
+                }
             />
 
         </section>

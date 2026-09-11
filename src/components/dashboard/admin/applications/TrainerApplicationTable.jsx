@@ -228,12 +228,19 @@ const TrainerApplicationTable = ({
 
                 <Button
                     variant="flat"
-                    startContent={
-                        <RefreshCw size={17} />
-                    }
+                    startContent={undefined}
                     onPress={loadApplications}
                     isLoading={refreshing}
                 >
+                    <RefreshCw
+                        size={17}
+                        className={
+                            loading
+                                ? "animate-spin"
+                                : ""
+                        }
+                    />
+
                     Refresh
                 </Button>
             </div>

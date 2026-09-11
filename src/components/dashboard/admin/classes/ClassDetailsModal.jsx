@@ -146,7 +146,7 @@ const ClassDetailsModal = ({
                                     <InfoItem
                                         icon={CircleDollarSign}
                                         label="Price"
-                                        value={`৳${classData.price ?? 0
+                                        value={`$${classData.price ?? 0
                                             }`}
                                     />
 

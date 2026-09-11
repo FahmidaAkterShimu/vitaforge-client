@@ -193,7 +193,7 @@ const TrainerApplicationModal = ({
                             </Button>
 
                             <Button
-                                color="primary"
+                                className="bg-primary"
                                 startContent={
                                     <CheckCircle2
                                         size={17}
