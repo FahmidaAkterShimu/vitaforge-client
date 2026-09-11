@@ -30,7 +30,7 @@ const LatestForumPosts = async () => {
                     </div>
 
                     <Link
-                        href="/forum"
+                        href="/community"
                         className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
                     >
                         Visit Forum

@@ -17,32 +17,31 @@ const CommunityPage = async () => {
     return (
         <main className="min-h-screen bg-background">
             {/* Hero */}
-            <section className="border-b border-border bg-surface-secondary">
-                <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-                    <div className="max-w-3xl">
-                        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                            <MessageCircle size={16} />
-                            VitaForge Community
-                        </div>
+            <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+                <div className="mb-8">
+                    <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary inline-flex items-center gap-2">
+                        <MessageCircle size={16} />
+                        VitaForge Community
+                    </p>
 
-                        <h1 className="font-display text-5xl font-bold leading-tight text-foreground sm:text-6xl lg:text-7xl">
-                            Connect. Learn.
-                            <span className="text-primary"> Get Stronger.</span>
-                        </h1>
+                    <h1 className="font-display text-4xl font-bold text-foreground">
+                        Connect. Learn.
+                        <span className="text-primary"> Get Stronger.</span>
+                    </h1>
 
-                        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-                            Explore fitness tips, workout advice, training
-                            insights, and valuable knowledge shared by our
-                            trainers and community.
-                        </p>
-                    </div>
+                    <p className="mt-2 max-w-2xl text-muted">
+                        Explore fitness tips, workout advice, training
+                        insights, and valuable knowledge shared by our
+                        trainers and community.
+                    </p>
                 </div>
-            </section>
+            </div>
+
 
             {/* Forum Posts */}
-            <section className="py-16 sm:py-20 lg:py-24">
+            <section>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    
+
                     {/* Posts */}
                     {posts.length > 0 ? (
                         <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
