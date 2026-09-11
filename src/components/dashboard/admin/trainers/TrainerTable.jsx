@@ -5,6 +5,7 @@ import { useState } from "react";
 import {
     Button,
     Input,
+    Modal,
 } from "@heroui/react";
 
 import {
@@ -21,24 +22,21 @@ import {
     demoteTrainer,
 } from "@/lib/api/admin";
 
-const TrainerTable = ({
-    initialTrainers = [],
-    initialSearch = "",
-}) => {
-    const [trainers, setTrainers] =
-        useState(initialTrainers);
+import DemoteTrainerModal from "./DemoteTrainerModal";
 
-    const [search, setSearch] =
-        useState(initialSearch);
+const TrainerTable = ({ initialTrainers = [], initialSearch = "" }) => {
+    const [trainers, setTrainers] = useState(initialTrainers);
 
-    const [loading, setLoading] =
-        useState(false);
+    const [search, setSearch] = useState(initialSearch);
 
-    const [refreshing, setRefreshing] =
-        useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const [demotingId, setDemotingId] =
-        useState(null);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const [demotingId, setDemotingId] = useState(null);
+
+    const [demoteModalOpen, setDemoteModalOpen] = useState(false);
+    const [selectedTrainer, setSelectedTrainer] = useState(null);
 
     // -----------------------------------------
     // Search
@@ -122,22 +120,22 @@ const TrainerTable = ({
     // Demote
     // -----------------------------------------
 
-    const handleDemote = async (trainer) => {
-        const confirmed = window.confirm(
-            `Are you sure you want to demote ${trainer.name || "this trainer"} to User?`
-        );
+    const handleDemote = (trainer) => {
+        setSelectedTrainer(trainer);
+        setDemoteModalOpen(true);
+    };
 
-        if (!confirmed) {
+    const confirmDemote = async () => {
+        if (!selectedTrainer) {
             return;
         }
 
         try {
-            setDemotingId(trainer._id);
+            setDemotingId(selectedTrainer._id);
 
-            const response =
-                await demoteTrainer(
-                    trainer._id
-                );
+            const response = await demoteTrainer(
+                selectedTrainer._id
+            );
 
             if (!response?.success) {
                 throw new Error(
@@ -150,9 +148,12 @@ const TrainerTable = ({
             setTrainers((current) =>
                 current.filter(
                     (item) =>
-                        item._id !== trainer._id
+                        item._id !== selectedTrainer._id
                 )
             );
+
+            setDemoteModalOpen(false);
+            setSelectedTrainer(null);
         } catch (error) {
             alert(
                 error?.message ||
@@ -205,7 +206,7 @@ const TrainerTable = ({
 
                 <div className="flex gap-2">
                     <Button
-                        color="primary"
+                        className="bg-primary"
                         onPress={handleSearch}
                         isLoading={loading}
                         startContent={
@@ -418,6 +419,21 @@ const TrainerTable = ({
                     </table>
                 </div>
             </div>
+
+            <DemoteTrainerModal
+                isOpen={demoteModalOpen}
+                onClose={() => {
+                    if (!demotingId) {
+                        setDemoteModalOpen(false);
+                        setSelectedTrainer(null);
+                    }
+                }}
+                trainer={selectedTrainer}
+                onConfirm={confirmDemote}
+                isLoading={
+                    demotingId === selectedTrainer?._id
+                }
+            />
         </div>
     );
 };
