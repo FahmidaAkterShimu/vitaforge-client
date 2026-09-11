@@ -183,27 +183,25 @@ const TrainerTable = ({
 
             {/* Search / Actions */}
             <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 sm:flex-row">
-                <Input
-                    value={search}
-                    onValueChange={setSearch}
-                    onKeyDown={(event) => {
-                        if (
-                            event.key ===
-                            "Enter"
-                        ) {
-                            handleSearch();
-                        }
-                    }}
-                    placeholder="Search by name or email..."
-                    variant="bordered"
-                    startContent={
-                        <Search
-                            size={18}
-                            className="text-muted"
-                        />
-                    }
-                    className="flex-1"
-                />
+                <div className="relative flex-1">
+                    <Search
+                        size={18}
+                        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+                    />
+
+                    <Input
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                        onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                                handleSearch();
+                            }
+                        }}
+                        placeholder="Search by name or email..."
+                        variant="bordered"
+                        className="w-full pl-10"
+                    />
+                </div>
 
                 <div className="flex gap-2">
                     <Button
@@ -212,9 +210,7 @@ const TrainerTable = ({
                         isLoading={loading}
                         startContent={
                             !loading && (
-                                <Search
-                                    size={17}
-                                />
+                                <Search size={17} />
                             )
                         }
                     >
@@ -227,9 +223,7 @@ const TrainerTable = ({
                         isLoading={refreshing}
                         startContent={
                             !refreshing && (
-                                <RefreshCw
-                                    size={17}
-                                />
+                                <RefreshCw size={17} />
                             )
                         }
                     >
@@ -384,7 +378,7 @@ const TrainerTable = ({
                                                     trainer._id
                                                 }
                                             >
-                                                Demote
+                                                Demote to User
                                             </Button>
                                         </td>
                                     </tr>
