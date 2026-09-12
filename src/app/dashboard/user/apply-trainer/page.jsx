@@ -10,6 +10,7 @@ const ApplyTrainerPage = () => {
     const [formData, setFormData] = useState({
         experience: "",
         specialty: "",
+        status:"Pending"
     });
 
     const [loading, setLoading] = useState(false);

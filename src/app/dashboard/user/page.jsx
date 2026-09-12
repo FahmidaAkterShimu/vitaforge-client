@@ -5,32 +5,96 @@ import {
     ArrowRight,
     CalendarCheck2,
     Dumbbell,
-    Heart
+    Heart,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 import UserDashboardStatCard from "@/components/dashboard/user/UserDashboardStatCard";
 import UserProfileCard from "@/components/dashboard/user/UserProfileCard";
 import TrainerApplicationCard from "@/components/dashboard/user/TrainerApplicationCard";
-import { authClient } from "@/lib/auth-client";
 
-const dashboardData = {
-    bookedClasses: 0,
-    favorites: 0,
-    trainerApplication: {
-        status: "not_applied",
-        feedback: "",
-    },
-};
+import { authClient } from "@/lib/auth-client";
+import {
+    getUserBookings,
+    getUserFavorites,
+    getUserTrainerApplication,
+} from "@/lib/api/user-dashboard";
 
 const UserDashboardPage = () => {
     const { data: session, isPending } = authClient.useSession();
 
+    const [dashboardData, setDashboardData] = useState(null);
+
+    useEffect(() => {
+        const userId = session?.user?.id;
+
+        if (!userId) {
+            return;
+        }
+
+        let cancelled = false;
+
+        const loadDashboard = async () => {
+            try {
+                const [
+                    bookingsResponse,
+                    favoritesResponse,
+                    applicationResponse,
+                ] = await Promise.all([
+                    getUserBookings(),
+                    getUserFavorites(),
+                    getUserTrainerApplication(),
+                ]);
+
+                if (cancelled) {
+                    return;
+                }
+
+                const application = applicationResponse?.data;
+
+                setDashboardData({
+                    bookedClasses: bookingsResponse?.data?.length ?? 0,
+                    favorites: favoritesResponse?.data?.length ?? 0,
+                    trainerApplication: {
+                        status: application?.status ?? "not_applied",
+                        feedback: application?.feedback ?? "",
+                    },
+                });
+            } catch (error) {
+                console.error("User dashboard error:", error);
+
+                if (!cancelled) {
+                    setDashboardData({
+                        bookedClasses: 0,
+                        favorites: 0,
+                        trainerApplication: {
+                            status: "not_applied",
+                            feedback: "",
+                        },
+                    });
+                }
+            }
+        };
+
+        loadDashboard();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [session?.user?.id]);
+
+    // Session loading
     if (isPending) {
         return <DashboardSkeleton />;
     }
 
     const user = session?.user;
+
+    // Dashboard data loading
+    if (!dashboardData) {
+        return <DashboardSkeleton />;
+    }
 
     return (
         <div className="space-y-7">
@@ -41,10 +105,8 @@ const UserDashboardPage = () => {
                 transition={{ duration: 0.45 }}
             >
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-             
-                    {/* heading */}
                     <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                        <p className="font-body text-xs font-bold uppercase tracking-[0.2em] text-primary">
                             Overview
                         </p>
 
@@ -53,9 +115,8 @@ const UserDashboardPage = () => {
                         </h1>
 
                         <p className="mt-3 max-w-xl font-body text-sm leading-6 text-muted">
-                            Track your classes, manage your favorites, and
-                            continue building your fitness journey with
-                            VitaForge.
+                            Track your classes, manage your favorites, and continue building
+                            your fitness journey with VitaForge.
                         </p>
                     </div>
 
@@ -96,7 +157,6 @@ const UserDashboardPage = () => {
                 />
             </section>
 
-
             {/* Quick Actions */}
             <section>
                 <div className="mb-4">
@@ -134,7 +194,7 @@ const UserDashboardPage = () => {
             </section>
         </div>
     );
-}
+};
 
 function QuickAction({
     href,

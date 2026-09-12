@@ -8,6 +8,8 @@ const FeaturedClasses = async () => {
     const data = await getAllClasses({
         status: "Approved",
         limit: 3,
+        sortBy: "bookingCount",
+        sortOrder: "desc",
     });
 
     const classes = Array.isArray(data) ? data : [];

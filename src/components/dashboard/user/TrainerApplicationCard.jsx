@@ -1,7 +1,11 @@
+"use client";
+
+import Link from "next/link";
 import {
-    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
     Clock3,
-    Dumbbell,
+    XCircle,
 } from "lucide-react";
 
 const TrainerApplicationCard = ({
@@ -9,74 +13,96 @@ const TrainerApplicationCard = ({
     feedback = "",
 }) => {
     const statusConfig = {
-        pending: {
-            label: "Pending Review",
-            icon: Clock3,
-            className: "border-yellow-500/20 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
-            description: "Your trainer application is currently being reviewed by the admin.",
-        },
-
-        rejected: {
-            label: "Application Rejected",
-            icon: AlertCircle,
-            className: "border-red-500/20 bg-red-500/10 text-red-600 dark:text-red-400",
-            description: "Your application was not approved at this time.",
-        },
-
         not_applied: {
             label: "Not Applied",
-            icon: Dumbbell,
-            className: "border-border bg-surface-secondary text-muted",
-            description: "You haven't submitted a trainer application yet.",
+            icon: Clock3,
+            description:
+                "You haven't submitted a trainer application yet.",
+        },
+
+        Pending: {
+            label: "Pending",
+            icon: Clock3,
+            description:
+                "Your application is currently under review.",
+        },
+
+        Approved: {
+            label: "Approved",
+            icon: CheckCircle2,
+            description:
+                "Congratulations! Your trainer application has been approved.",
+        },
+
+        Rejected: {
+            label: "Rejected",
+            icon: XCircle,
+            description:
+                "Your trainer application was rejected.",
         },
     };
 
-    const config = statusConfig[status] || statusConfig.not_applied;
-    const Icon = config.icon;
+    const current =
+        statusConfig[status] ||
+        statusConfig.not_applied;
+
+    const Icon = current.icon;
 
     return (
         <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm sm:p-6">
             <div className="flex items-start justify-between gap-4">
                 <div>
                     <p className="font-body text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
-                        Trainer Journey
+                        Trainer Application
                     </p>
 
-                    <h2 className="mt-1 font-display text-2xl font-bold uppercase text-foreground">
-                        Application Status
+                    <h2 className="mt-2 font-display text-2xl font-bold uppercase text-foreground">
+                        {current.label}
                     </h2>
                 </div>
 
-                <Icon className="size-5 shrink-0 text-primary" />
-            </div>
-
-            <div className={`mt-5 rounded-xl border p-4 ${config.className}`}>
-                <div className="flex items-center gap-2">
-                    <Icon className="size-4" />
-
-                    <span className="font-body text-xs font-bold uppercase tracking-wider">
-                        {config.label}
-                    </span>
+                <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Icon className="size-5" />
                 </div>
-
-                <p className="mt-2 font-body text-sm leading-6">
-                    {config.description}
-                </p>
             </div>
 
-            {status === "rejected" && feedback && (
-                <div className="mt-4 rounded-xl border border-border bg-surface-secondary p-4">
-                    <p className="font-body text-[10px] font-bold uppercase tracking-wider text-muted">
+            <p className="mt-4 font-body text-sm leading-6 text-muted">
+                {current.description}
+            </p>
+
+            {feedback && status === "Rejected" && (
+                <div className="mt-4 rounded-xl bg-surface-secondary p-4">
+                    <p className="font-body text-xs font-bold uppercase tracking-wider text-foreground">
                         Admin Feedback
                     </p>
 
-                    <p className="mt-2 font-body text-sm leading-6 text-foreground">
+                    <p className="mt-2 font-body text-sm leading-6 text-muted">
                         {feedback}
                     </p>
                 </div>
             )}
+
+            {status === "not_applied" && (
+                <Link
+                    href="/dashboard/user/apply-trainer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                >
+                    Apply as Trainer
+                    <ArrowRight className="size-4" />
+                </Link>
+            )}
+
+            {status === "Rejected" && (
+                <Link
+                    href="/dashboard/user/apply-trainer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                >
+                    Apply Again
+                    <ArrowRight className="size-4" />
+                </Link>
+            )}
         </div>
     );
-}
+};
 
 export default TrainerApplicationCard;

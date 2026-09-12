@@ -20,6 +20,8 @@ export const getClassStudents = async (classId) => {
 export const getAllClasses = async ({
     status = "Approved",
     limit,
+    sortBy,
+    sortOrder,
 } = {}) => {
     const params = new URLSearchParams();
 
@@ -27,6 +29,14 @@ export const getAllClasses = async ({
 
     if (limit) {
         params.set("limit", limit);
+    }
+
+    if (sortBy) {
+        params.set("sortBy", sortBy);
+    }
+
+    if (sortOrder) {
+        params.set("sortOrder", sortOrder);
     }
 
     return serverFetch(`/api/classes?${params.toString()}`);

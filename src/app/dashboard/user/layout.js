@@ -1,32 +1,30 @@
-"use client";
+import { redirect } from "next/navigation";
 
 import UserDashboardSidebar from "@/components/dashboard/user/UserDashboardSidebar";
 import UserDashboardHeader from "@/components/dashboard/user/UserDashboardHeader";
-import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import getUserSession from "@/lib/core/session";
 
-
-const UserDashboardLayout = ({ children }) => {
-
-    const { data: session } = authClient.useSession();
+const UserDashboardLayout = async ({ children }) => {
+    // Get current session
+    const user = await getUserSession();
 
     // Not logged in
-    if (!session) {
+    if (!user) {
         redirect("/login");
     }
 
     // Logged in but not normal user
-    if (session.user.role !== "user") {
+    if (user.role !== "user") {
         redirect("/unauthorized");
     }
-
-
 
     return (
         <div className="min-h-screen bg-background text-foreground">
 
+            {/* User Header */}
             <UserDashboardHeader />
 
+            {/* User Sidebar */}
             <UserDashboardSidebar />
 
             {/* Main Content */}
@@ -35,8 +33,9 @@ const UserDashboardLayout = ({ children }) => {
                     {children}
                 </div>
             </main>
+
         </div>
     );
-}
+};
 
 export default UserDashboardLayout;
