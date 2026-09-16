@@ -16,8 +16,8 @@ const CommunityPage = async () => {
 
     return (
         <main className="min-h-screen bg-background">
-            {/* Hero */}
             <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+                {/* Hero */}
                 <div className="mb-8">
                     <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary inline-flex items-center gap-2">
                         <MessageCircle size={16} />
@@ -35,13 +35,9 @@ const CommunityPage = async () => {
                         trainers and community.
                     </p>
                 </div>
-            </div>
 
-
-            {/* Forum Posts */}
-            <section>
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
+                {/* Forum Posts */}
+                <div>
                     {/* Posts */}
                     {posts.length > 0 ? (
                         <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
@@ -136,7 +132,8 @@ const CommunityPage = async () => {
                         </div>
                     )}
                 </div>
-            </section>
+
+            </div>
         </main>
     );
 
