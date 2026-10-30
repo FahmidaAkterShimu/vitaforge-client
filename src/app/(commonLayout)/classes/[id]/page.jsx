@@ -36,7 +36,7 @@ const ClassDetailsPage = async ({ params }) => {
         schedule,
         price,
         description,
-        studentsCount,
+        bookingCount,
         trainerName,
     } = classData;
 
@@ -142,7 +142,7 @@ const ClassDetailsPage = async ({ params }) => {
                                 </div>
 
                                 <p className="mt-3 font-semibold text-foreground">
-                                    {studentsCount} <span className="font-normal">students</span>
+                                    {bookingCount || 0} <span className="font-normal">students</span>
                                 </p>
                             </div>
 

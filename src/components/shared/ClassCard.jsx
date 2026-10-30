@@ -29,7 +29,7 @@ const ClassCard = ({ classData, onMore }) => {
         difficulty,
         duration,
         price,
-        studentsCount,
+        bookingCount,
         trainerName,
     } = classData;
 
@@ -103,7 +103,7 @@ const ClassCard = ({ classData, onMore }) => {
                             className="shrink-0 text-primary"
                         />
                         <p className="text-sm font-medium text-foreground">
-                            {studentsCount} booked
+                            {bookingCount || 0 } booked
                         </p>
                     </div>
                 </div>
