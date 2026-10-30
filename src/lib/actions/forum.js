@@ -1,8 +1,10 @@
 "use server";
 
+import { serverMutation } from "../core/server";
+
 // Create Forum Post
 export const createForumPost = async (postData) => {
-    return serverMutation('/api/forum-posts', postData)
+    return serverMutation("/api/forum-posts", postData);
 };
 
 // Delete Forum Post
@@ -14,10 +16,19 @@ export const deleteForumPost = async (postId) => {
             headers: {
                 "Content-Type": "application/json",
             },
+            cache: "no-store",
         }
     );
 
     return response.json();
+};
+
+// Vote (like / dislike)
+export const voteForumPost = async (postId, voteData) => {
+    return serverMutation(
+        `/api/forum-posts/${postId}/vote`,
+        voteData
+    );
 };
 
 // Create comment/reply
