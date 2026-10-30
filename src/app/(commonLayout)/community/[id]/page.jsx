@@ -26,11 +26,11 @@ const ForumPostDetailsPage = async ({ params }) => {
                     </p>
 
                     <Link
-                        href="/forum"
+                        href="/community"
                         className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
                     >
                         <ArrowLeft size={18} />
-                        Back to Forum
+                        Back to Community
                     </Link>
                 </div>
             </main>
@@ -43,11 +43,11 @@ const ForumPostDetailsPage = async ({ params }) => {
 
                 {/* Back */}
                 <Link
-                    href="/forum"
+                    href="/community"
                     className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-primary"
                 >
                     <ArrowLeft size={18} />
-                    Back to Forum
+                    Back to Community
                 </Link>
 
                 {/* Post */}
