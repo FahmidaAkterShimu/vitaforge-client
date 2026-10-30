@@ -2,6 +2,7 @@ import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import { Providers } from "@/providers/ThemeProvider";
+import JwtSync from "@/components/JwtSync";
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-display",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
           <ToastContainer />
           <div className="pt-16">
             {children}
+            <JwtSync />
           </div>
         </Providers>
       </body>
