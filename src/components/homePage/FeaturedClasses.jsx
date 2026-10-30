@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
 import ClassCard from "@/components/shared/ClassCard";
 import { getAllClasses } from "@/lib/api/classes";
 
@@ -12,7 +11,11 @@ const FeaturedClasses = async () => {
         sortOrder: "desc",
     });
 
-    const classes = Array.isArray(data) ? data : [];
+    // Safety: server jodi limit/sort na-o kore, ekhane top 3 thik hobe
+    const classes = (Array.isArray(data) ? data : [])
+        .filter((item) => item.status === "Approved")
+        .sort((a, b) => (b.bookingCount || 0) - (a.bookingCount || 0))
+        .slice(0, 3);
 
     return (
         <section className="bg-background py-16 sm:py-20 lg:py-24">
