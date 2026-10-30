@@ -229,35 +229,9 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-neutral-800 py-7">
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-
-                        <p className="text-xs sm:text-sm text-neutral-500 text-center sm:text-left">
-                            © 2026 VitaForge. All rights reserved.
-                        </p>
-
-                        <div className="flex items-center gap-5 text-xs sm:text-sm">
-                            <Link
-                                href="/privacy"
-                                className="text-neutral-500 hover:text-brand transition-colors"
-                            >
-                                Privacy Policy
-                            </Link>
-
-                            <Link
-                                href="/terms"
-                                className="text-neutral-500 hover:text-brand transition-colors"
-                            >
-                                Terms of Service
-                            </Link>
-
-                            <Link
-                                href="/cookies"
-                                className="text-neutral-500 hover:text-brand transition-colors"
-                            >
-                                Cookie Policy
-                            </Link>
-                        </div>
-                    </div>
+                    <p className="text-center text-xs sm:text-sm text-neutral-500">
+                        © 2026 VitaForge. All rights reserved.
+                    </p>
                 </div>
             </div>
         </footer>
