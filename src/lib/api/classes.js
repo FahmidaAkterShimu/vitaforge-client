@@ -3,8 +3,13 @@
 import { serverFetch } from "../core/server";
 
 // Triner classes
-export const getTrainerClasses = async (trainerId, status = "Pending") => {
-    return serverFetch(`/api/classes?trainerId=${trainerId}&status=${status}`)
+export const getTrainerClasses = async (trainerId, status = "all") => {
+    const params = new URLSearchParams();
+
+    params.set("trainerId", trainerId);
+    params.set("status", status);
+
+    return serverFetch(`/api/classes?${params.toString()}`);
 };
 
 // Enrolled students
