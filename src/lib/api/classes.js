@@ -14,11 +14,7 @@ export const getTrainerClasses = async (trainerId, status = "all") => {
 
 // Enrolled students
 export const getClassStudents = async (classId) => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/classes/${classId}/students`
-    );
-
-    return response.json();
+    return serverFetch(`/api/classes/${classId}/students`);
 };
 
 // Get all classes for users 

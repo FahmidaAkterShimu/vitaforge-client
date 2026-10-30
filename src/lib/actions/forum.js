@@ -9,18 +9,7 @@ export const createForumPost = async (postData) => {
 
 // Delete Forum Post
 export const deleteForumPost = async (postId) => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/forum-posts/${postId}`,
-        {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            cache: "no-store",
-        }
-    );
-
-    return response.json();
+    return serverMutation(`/api/forum-posts/${postId}`, undefined, "DELETE");
 };
 
 // Vote (like / dislike)
