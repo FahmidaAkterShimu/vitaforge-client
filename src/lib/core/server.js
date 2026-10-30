@@ -7,6 +7,7 @@ export const serverMutation = async (path, data, method = "POST") => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
+            cache: "no-store",
         }
     );
 
@@ -15,7 +16,11 @@ export const serverMutation = async (path, data, method = "POST") => {
 
 export const serverFetch = async (path) => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`);
+        `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`,
+        {
+            cache: "no-store",
+        }
+    );
 
     // handle 401, 403, 404
 
