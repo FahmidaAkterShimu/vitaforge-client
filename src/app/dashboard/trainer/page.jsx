@@ -71,7 +71,7 @@ const TrainerDashboardPage = () => {
                     </div>
 
                     <Link
-                        href="/dashboard/trainer/classes"
+                        href="/dashboard/trainer/my-classes"
                         className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
                     >
                         Manage Classes
