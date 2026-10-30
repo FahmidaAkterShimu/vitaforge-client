@@ -5,6 +5,8 @@ import ReadyToTransform from "@/components/homePage/ReadyToTransform";
 import Stats from "@/components/homePage/Stats";
 import WhyVitaForge from "@/components/homePage/WhyVitaForge";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <div>
