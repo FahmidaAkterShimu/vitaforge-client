@@ -31,9 +31,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <Providers>
           <ToastContainer />
-          <main className="pt-16">
+          <div className="pt-16">
             {children}
-          </main>
+          </div>
         </Providers>
       </body>
     </html>
